@@ -1,0 +1,1426 @@
+---
+// src/components/QrGenerator.astro
+---
+
+<div class="w-full max-w-6xl mx-auto px-4 md:px-6 py-12 relative z-10">
+  <!-- Hero / Header Section -->
+  <div class="text-center mb-16 relative">
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-canvas-soft border border-hairline text-xs font-mono text-body mb-4 shadow-sm">
+      <span class="w-2 h-2 rounded-full bg-success animate-pulse"></span>
+      Version 2.0 Released
+    </div>
+    <h1 class="text-4xl md:text-5xl font-semibold tracking-tight text-ink mb-4 leading-none font-sans">
+      Universal QR Generator.
+    </h1>
+    <p class="text-lg text-body max-w-2xl mx-auto font-sans">
+      Generate customized, print-ready, high-fidelity QR codes with custom styling, dot shape adjustments, and logo overlays.
+    </p>
+  </div>
+
+  <!-- Main Generator Workspace -->
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-16">
+    <!-- Left Column: Inputs and Options (8 cols on desktop) -->
+    <div class="lg:col-span-7 space-y-6">
+      
+      <!-- Content Type Tabs -->
+      <div class="bg-canvas border border-hairline rounded-md p-1 shadow-level-2">
+        <div class="grid grid-cols-3 sm:grid-cols-6 gap-1" role="tablist" id="content-tabs">
+          <button type="button" class="tab-btn active px-3 py-2 text-xs font-medium rounded-sm transition-colors duration-200 cursor-pointer flex flex-col items-center gap-1 bg-primary text-on-primary" data-tab="url" role="tab" aria-selected="true">
+            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            URL
+          </button>
+          <button type="button" class="tab-btn px-3 py-2 text-xs font-medium rounded-sm transition-colors duration-200 cursor-pointer flex flex-col items-center gap-1 text-body hover:text-ink hover:bg-canvas-soft-2" data-tab="wifi" role="tab" aria-selected="false">
+            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20" stroke-width="3"/></svg>
+            WiFi
+          </button>
+          <button type="button" class="tab-btn px-3 py-2 text-xs font-medium rounded-sm transition-colors duration-200 cursor-pointer flex flex-col items-center gap-1 text-body hover:text-ink hover:bg-canvas-soft-2" data-tab="contact" role="tab" aria-selected="false">
+            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            Contact
+          </button>
+          <button type="button" class="tab-btn px-3 py-2 text-xs font-medium rounded-sm transition-colors duration-200 cursor-pointer flex flex-col items-center gap-1 text-body hover:text-ink hover:bg-canvas-soft-2" data-tab="email" role="tab" aria-selected="false">
+            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            Email
+          </button>
+          <button type="button" class="tab-btn px-3 py-2 text-xs font-medium rounded-sm transition-colors duration-200 cursor-pointer flex flex-col items-center gap-1 text-body hover:text-ink hover:bg-canvas-soft-2" data-tab="sms" role="tab" aria-selected="false">
+            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            SMS
+          </button>
+          <button type="button" class="tab-btn px-3 py-2 text-xs font-medium rounded-sm transition-colors duration-200 cursor-pointer flex flex-col items-center gap-1 text-body hover:text-ink hover:bg-canvas-soft-2" data-tab="phone" role="tab" aria-selected="false">
+            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            Phone
+          </button>
+        </div>
+      </div>
+
+      <!-- Tab Content Card -->
+      <div class="bg-canvas border border-hairline rounded-md p-6 shadow-level-3">
+        <!-- URL Input -->
+        <div id="tab-content-url" class="tab-pane">
+          <label for="input-url" class="block text-xs font-mono uppercase text-body mb-2">Website URL or Text Content</label>
+          <input type="url" id="input-url" name="url" autocomplete="off" inputmode="url" spellcheck="false" class="form-input-box h-10 px-3 bg-canvas border border-hairline rounded-sm text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary w-full transition-colors focus-visible:ring-1 focus-visible:ring-primary focus-visible:outline-none" placeholder="https://example.com…" value="https://example.com" />
+        </div>
+
+        <!-- WiFi Input -->
+        <div id="tab-content-wifi" class="tab-pane hidden space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label for="input-wifi-ssid" class="block text-xs font-mono uppercase text-body mb-2">Network Name (SSID)</label>
+              <input type="text" id="input-wifi-ssid" name="wifi_ssid" autocomplete="off" spellcheck="false" class="form-input-box h-10 px-3 bg-canvas border border-hairline rounded-sm text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary w-full transition-colors focus-visible:ring-1 focus-visible:ring-primary focus-visible:outline-none" placeholder="My Home WiFi…" />
+            </div>
+            <div>
+              <label for="input-wifi-encryption" class="block text-xs font-mono uppercase text-body mb-2">Encryption Type</label>
+              <select id="input-wifi-encryption" name="wifi_encryption" class="h-10 px-3 bg-canvas border border-hairline rounded-sm text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary w-full transition-colors focus-visible:ring-1 focus-visible:ring-primary focus-visible:outline-none cursor-pointer">
+                <option value="WPA">WPA / WPA2</option>
+                <option value="WEP">WEP</option>
+                <option value="nopass">None (Open)</option>
+              </select>
+            </div>
+          </div>
+          <div>
+            <label for="input-wifi-password" class="block text-xs font-mono uppercase text-body mb-2">Network Password</label>
+            <input type="password" id="input-wifi-password" name="wifi_password" autocomplete="off" spellcheck="false" class="form-input-box h-10 px-3 bg-canvas border border-hairline rounded-sm text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary w-full transition-colors focus-visible:ring-1 focus-visible:ring-primary focus-visible:outline-none" placeholder="••••••••" />
+          </div>
+          <div class="flex items-center gap-2">
+            <input type="checkbox" id="input-wifi-hidden" name="wifi_hidden" class="rounded border-hairline text-primary focus:ring-primary focus-visible:ring-1 focus-visible:ring-primary h-4 w-4 cursor-pointer" />
+            <label for="input-wifi-hidden" class="text-xs text-body select-none cursor-pointer">This network is hidden</label>
+          </div>
+        </div>
+
+        <!-- Contact (vCard) Input -->
+        <div id="tab-content-contact" class="tab-pane hidden space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label for="input-contact-first" class="block text-xs font-mono uppercase text-body mb-2">First Name</label>
+              <input type="text" id="input-contact-first" name="first_name" autocomplete="given-name" class="form-input-box h-10 px-3 bg-canvas border border-hairline rounded-sm text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary w-full transition-colors focus-visible:ring-1 focus-visible:ring-primary focus-visible:outline-none" placeholder="John" />
+            </div>
+            <div>
+              <label for="input-contact-last" class="block text-xs font-mono uppercase text-body mb-2">Last Name</label>
+              <input type="text" id="input-contact-last" name="last_name" autocomplete="family-name" class="form-input-box h-10 px-3 bg-canvas border border-hairline rounded-sm text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary w-full transition-colors focus-visible:ring-1 focus-visible:ring-primary focus-visible:outline-none" placeholder="Doe" />
+            </div>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label for="input-contact-phone" class="block text-xs font-mono uppercase text-body mb-2">Phone Number</label>
+              <input type="tel" id="input-contact-phone" name="phone" autocomplete="tel" inputmode="tel" class="form-input-box h-10 px-3 bg-canvas border border-hairline rounded-sm text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary w-full transition-colors focus-visible:ring-1 focus-visible:ring-primary focus-visible:outline-none" placeholder="+1 (555) 019-2834…" />
+            </div>
+            <div>
+              <label for="input-contact-email" class="block text-xs font-mono uppercase text-body mb-2">Email Address</label>
+              <input type="email" id="input-contact-email" name="email" autocomplete="email" spellcheck="false" class="form-input-box h-10 px-3 bg-canvas border border-hairline rounded-sm text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary w-full transition-colors focus-visible:ring-1 focus-visible:ring-primary focus-visible:outline-none" placeholder="john.doe@gmail.com…" />
+            </div>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label for="input-contact-org" class="block text-xs font-mono uppercase text-body mb-2">Company / Organization</label>
+              <input type="text" id="input-contact-org" name="organization" autocomplete="organization" class="form-input-box h-10 px-3 bg-canvas border border-hairline rounded-sm text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary w-full transition-colors focus-visible:ring-1 focus-visible:ring-primary focus-visible:outline-none" placeholder="Vercel Inc." />
+            </div>
+            <div>
+              <label for="input-contact-title" class="block text-xs font-mono uppercase text-body mb-2">Job Title</label>
+              <input type="text" id="input-contact-title" name="job_title" class="form-input-box h-10 px-3 bg-canvas border border-hairline rounded-sm text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary w-full transition-colors focus-visible:ring-1 focus-visible:ring-primary focus-visible:outline-none" placeholder="Staff Software Engineer" />
+            </div>
+          </div>
+          <div>
+            <label for="input-contact-url" class="block text-xs font-mono uppercase text-body mb-2">Website</label>
+            <input type="url" id="input-contact-url" name="contact_url" autocomplete="url" inputmode="url" spellcheck="false" class="form-input-box h-10 px-3 bg-canvas border border-hairline rounded-sm text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary w-full transition-colors focus-visible:ring-1 focus-visible:ring-primary focus-visible:outline-none" placeholder="https://johndoe.dev…" />
+          </div>
+          <div>
+            <label for="input-contact-address" class="block text-xs font-mono uppercase text-body mb-2">Work Address</label>
+            <input type="text" id="input-contact-address" name="address" autocomplete="street-address" class="form-input-box h-10 px-3 bg-canvas border border-hairline rounded-sm text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary w-full transition-colors focus-visible:ring-1 focus-visible:ring-primary focus-visible:outline-none" placeholder="100 California St, San Francisco, CA" />
+          </div>
+        </div>
+
+        <!-- Email Input -->
+        <div id="tab-content-email" class="tab-pane hidden space-y-4">
+          <div>
+            <label for="input-email-to" class="block text-xs font-mono uppercase text-body mb-2">Recipient Email</label>
+            <input type="email" id="input-email-to" name="email_to" autocomplete="email" spellcheck="false" class="form-input-box h-10 px-3 bg-canvas border border-hairline rounded-sm text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary w-full transition-colors focus-visible:ring-1 focus-visible:ring-primary focus-visible:outline-none" placeholder="hello@company.com…" />
+          </div>
+          <div>
+            <label for="input-email-subject" class="block text-xs font-mono uppercase text-body mb-2">Subject Line</label>
+            <input type="text" id="input-email-subject" name="email_subject" autocomplete="off" class="form-input-box h-10 px-3 bg-canvas border border-hairline rounded-sm text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary w-full transition-colors focus-visible:ring-1 focus-visible:ring-primary focus-visible:outline-none" placeholder="Feedback on presentation…" />
+          </div>
+          <div>
+            <label for="input-email-body" class="block text-xs font-mono uppercase text-body mb-2">Email Body Message</label>
+            <textarea id="input-email-body" name="email_body" rows="4" class="form-input-box p-3 bg-canvas border border-hairline rounded-sm text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary w-full transition-colors focus-visible:ring-1 focus-visible:ring-primary focus-visible:outline-none resize-none" placeholder="Type your message details here…"></textarea>
+          </div>
+        </div>
+
+        <!-- SMS Input -->
+        <div id="tab-content-sms" class="tab-pane hidden space-y-4">
+          <div>
+            <label for="input-sms-phone" class="block text-xs font-mono uppercase text-body mb-2">Phone Number</label>
+            <input type="tel" id="input-sms-phone" name="sms_phone" autocomplete="tel" inputmode="tel" class="form-input-box h-10 px-3 bg-canvas border border-hairline rounded-sm text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary w-full transition-colors focus-visible:ring-1 focus-visible:ring-primary focus-visible:outline-none" placeholder="+15551234567…" />
+          </div>
+          <div>
+            <label for="input-sms-body" class="block text-xs font-mono uppercase text-body mb-2">SMS Message</label>
+            <textarea id="input-sms-body" name="sms_body" rows="3" class="form-input-box p-3 bg-canvas border border-hairline rounded-sm text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary w-full transition-colors focus-visible:ring-1 focus-visible:ring-primary focus-visible:outline-none resize-none" placeholder="Hello! Text me back at this number."></textarea>
+          </div>
+        </div>
+
+        <!-- Phone Input -->
+        <div id="tab-content-phone" class="tab-pane hidden">
+          <label for="input-phone-num" class="block text-xs font-mono uppercase text-body mb-2">Phone Number</label>
+          <input type="tel" id="input-phone-num" name="phone_num" autocomplete="tel" inputmode="tel" class="form-input-box h-10 px-3 bg-canvas border border-hairline rounded-sm text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary w-full transition-colors focus-visible:ring-1 focus-visible:ring-primary focus-visible:outline-none" placeholder="+15551234567…" />
+        </div>
+      </div>
+
+      <!-- Advanced Customization Accordions -->
+      <div class="space-y-4">
+        
+        <!-- Accordion Item 1: Style Presets -->
+        <div class="bg-canvas border border-hairline rounded-md overflow-hidden shadow-level-2 accordion-item">
+          <button type="button" aria-expanded="true" class="w-full px-6 py-4 flex items-center justify-between text-sm font-medium text-ink bg-canvas hover:bg-canvas-soft-2 cursor-pointer transition-colors focus-visible:ring-1 focus-visible:ring-primary focus-visible:outline-none" data-accordion-trigger>
+            <span class="flex items-center gap-2">
+              <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20a8 8 0 1 0 0-16 8 8 0 0 0 0 16z"/><path d="M12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+              Style Presets
+            </span>
+            <svg class="chevron transition-transform duration-200 transform rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          
+          <div class="px-6 py-4 border-t border-hairline bg-canvas-soft space-y-4 accordion-content">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label for="select-dot-style" class="block text-xs font-mono uppercase text-body mb-2">Dot Pattern</label>
+                <select id="select-dot-style" class="opt-control h-10 px-3 bg-canvas border border-hairline rounded-sm text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary focus-visible:ring-1 focus-visible:ring-primary focus-visible:outline-none w-full cursor-pointer transition-colors">
+                  <option value="square">Standard Square</option>
+                  <option value="rounded">Rounded Squares</option>
+                  <option value="dots">Classy Dots</option>
+                </select>
+              </div>
+              <div>
+                <label for="select-finder-style" class="block text-xs font-mono uppercase text-body mb-2">Corner Eyes</label>
+                <select id="select-finder-style" class="opt-control h-10 px-3 bg-canvas border border-hairline rounded-sm text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary focus-visible:ring-1 focus-visible:ring-primary focus-visible:outline-none w-full cursor-pointer transition-colors">
+                  <option value="square">Sharp Square</option>
+                  <option value="rounded">Smooth Rounded</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Accordion Item 2: Custom Brand Colors -->
+        <div class="bg-canvas border border-hairline rounded-md overflow-hidden shadow-level-2 accordion-item">
+          <button type="button" aria-expanded="false" class="w-full px-6 py-4 flex items-center justify-between text-sm font-medium text-ink bg-canvas hover:bg-canvas-soft-2 cursor-pointer transition-colors focus-visible:ring-1 focus-visible:ring-primary focus-visible:outline-none" data-accordion-trigger>
+            <span class="flex items-center gap-2">
+              <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 14.7255 3.09032 17.1962 4.85857 19C5.03345 19.1766 5.09912 19.431 5.029 19.6617L4.6 21.0718C4.51528 21.35 4.75782 21.609 5.0425 21.5378L6.47192 21.1805C6.70275 21.1228 6.94977 21.196 7.12157 21.3678C8.48375 21.7772 9.94318 22 12 22Z"/><circle cx="7.5" cy="10.5" r="1.5"/><circle cx="11.5" cy="7.5" r="1.5"/><circle cx="16.5" cy="9.5" r="1.5"/></svg>
+              Brand Colors
+            </span>
+            <svg class="chevron transition-transform duration-200 transform rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          
+          <div class="px-6 py-4 border-t border-hairline bg-canvas-soft space-y-4 accordion-content">
+            <!-- Color presets row -->
+            <div>
+              <span class="block text-xs font-mono uppercase text-body mb-2">Preset Themes</span>
+              <div class="flex flex-wrap gap-2">
+                <button type="button" class="preset-theme-btn w-6 h-6 rounded-full border border-hairline bg-primary relative cursor-pointer group" data-fg="#171717" data-bg="#ffffff" title="Classic Vercel Ink" aria-label="Set theme to Classic Vercel Ink">
+                  <span class="absolute inset-0 rounded-full border-2 border-white scale-0 transition-transform active-check"></span>
+                </button>
+                <button type="button" class="preset-theme-btn w-6 h-6 rounded-full border border-hairline bg-success relative cursor-pointer group" data-fg="#0070f3" data-bg="#ffffff" title="Hyper Blue" aria-label="Set theme to Hyper Blue">
+                  <span class="absolute inset-0 rounded-full border-2 border-white scale-0 transition-transform active-check"></span>
+                </button>
+                <button type="button" class="preset-theme-btn w-6 h-6 rounded-full border border-hairline bg-violet relative cursor-pointer group" data-fg="#7928ca" data-bg="#ffffff" title="Premium Violet" aria-label="Set theme to Premium Violet">
+                  <span class="absolute inset-0 rounded-full border-2 border-white scale-0 transition-transform active-check"></span>
+                </button>
+                <button type="button" class="preset-theme-btn w-6 h-6 rounded-full border border-hairline bg-warning relative cursor-pointer group" data-fg="#f5a623" data-bg="#ffffff" title="Warm Amber" aria-label="Set theme to Warm Amber">
+                  <span class="absolute inset-0 rounded-full border-2 border-white scale-0 transition-transform active-check"></span>
+                </button>
+                <button type="button" class="preset-theme-btn w-6 h-6 rounded-full border border-hairline bg-gradient-to-r from-pink-500 to-rose-500 relative cursor-pointer group" data-fg="#ff0080" data-bg="#ffffff" title="Bright Pink" aria-label="Set theme to Bright Pink">
+                  <span class="absolute inset-0 rounded-full border-2 border-white scale-0 transition-transform active-check"></span>
+                </button>
+                <button type="button" class="preset-theme-btn w-6 h-6 rounded-full border border-hairline bg-emerald-500 relative cursor-pointer group" data-fg="#10b981" data-bg="#ffffff" title="Forest Emerald" aria-label="Set theme to Forest Emerald">
+                  <span class="absolute inset-0 rounded-full border-2 border-white scale-0 transition-transform active-check"></span>
+                </button>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <!-- Foreground color picker -->
+              <div>
+                <label for="color-fg" class="block text-xs font-mono uppercase text-body mb-2">Foreground Color</label>
+                <div class="flex gap-2">
+                  <input type="color" id="color-fg" class="opt-control w-10 h-10 border border-hairline rounded-sm cursor-pointer p-0.5 bg-canvas" value="#171717" aria-label="Foreground color picker" />
+                  <input type="text" id="color-fg-text" class="h-10 px-3 bg-canvas border border-hairline rounded-sm text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary focus-visible:ring-1 focus-visible:ring-primary focus-visible:outline-none w-full text-center font-mono transition-colors" value="#171717" maxlength="7" aria-label="Foreground color hex code" />
+                </div>
+              </div>
+
+              <!-- Background color picker -->
+              <div>
+                <label for="color-bg" class="block text-xs font-mono uppercase text-body mb-2">Background Color</label>
+                <div class="flex gap-2">
+                  <input type="color" id="color-bg" class="opt-control w-10 h-10 border border-hairline rounded-sm cursor-pointer p-0.5 bg-canvas" value="#ffffff" aria-label="Background color picker" />
+                  <input type="text" id="color-bg-text" class="h-10 px-3 bg-canvas border border-hairline rounded-sm text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary focus-visible:ring-1 focus-visible:ring-primary focus-visible:outline-none w-full text-center font-mono transition-colors" value="#ffffff" maxlength="7" aria-label="Background color hex code" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Transparent background checkbox -->
+            <div class="flex items-center gap-2">
+              <input type="checkbox" id="check-transparent" name="transparent_bg" class="opt-control rounded border-hairline text-primary focus:ring-primary focus-visible:ring-1 focus-visible:ring-primary h-4 w-4 cursor-pointer" />
+              <label for="check-transparent" class="text-xs text-body select-none cursor-pointer">Transparent background</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Accordion Item 3: Center Logo Overlay -->
+        <div class="bg-canvas border border-hairline rounded-md overflow-hidden shadow-level-2 accordion-item">
+          <button type="button" aria-expanded="false" class="w-full px-6 py-4 flex items-center justify-between text-sm font-medium text-ink bg-canvas hover:bg-canvas-soft-2 cursor-pointer transition-colors focus-visible:ring-1 focus-visible:ring-primary focus-visible:outline-none" data-accordion-trigger>
+            <span class="flex items-center gap-2">
+              <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              Center Logo
+            </span>
+            <svg class="chevron transition-transform duration-200 transform rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          
+          <div class="px-6 py-4 border-t border-hairline bg-canvas-soft space-y-4 accordion-content">
+            <div>
+              <label for="logo-upload" class="block text-xs font-mono uppercase text-body mb-2">Upload Logo Image (PNG / JPG)</label>
+              <div class="flex items-center gap-4">
+                <label for="logo-upload" class="h-10 px-4 flex items-center justify-center bg-canvas hover:bg-canvas-soft-2 border border-hairline rounded-sm text-xs font-medium cursor-pointer transition-colors focus-visible:ring-1 focus-visible:ring-primary focus-visible:outline-none select-none">
+                  Choose File
+                </label>
+                <input type="file" id="logo-upload" accept="image/png, image/jpeg" class="hidden" aria-label="Upload logo image" />
+                <span id="logo-filename" class="text-xs text-mute truncate max-w-xs">No file uploaded</span>
+                <button type="button" id="btn-clear-logo" class="hidden text-xs text-error font-medium hover:underline flex items-center gap-1 cursor-pointer">
+                  <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                  Remove
+                </button>
+              </div>
+            </div>
+
+            <!-- Logo resizing slider -->
+            <div id="logo-settings-panel" class="hidden space-y-4 border-t border-hairline pt-4 mt-2">
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <label for="logo-size-slider" class="text-xs font-mono uppercase text-body">Logo Scale</label>
+                  <span id="logo-size-value" class="text-xs font-mono text-body">18%</span>
+                </div>
+                <input type="range" id="logo-size-slider" min="10" max="25" value="18" class="opt-control w-full h-1.5 bg-hairline rounded-lg appearance-none cursor-pointer accent-primary" aria-label="Adjust logo scale percentage" />
+                <p class="text-[10px] text-mute mt-1">High error correction level will automatically be enabled to ensure readability.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Accordion Item 4: Optimization Settings -->
+        <div class="bg-canvas border border-hairline rounded-md overflow-hidden shadow-level-2 accordion-item">
+          <button type="button" aria-expanded="false" class="w-full px-6 py-4 flex items-center justify-between text-sm font-medium text-ink bg-canvas hover:bg-canvas-soft-2 cursor-pointer transition-colors focus-visible:ring-1 focus-visible:ring-primary focus-visible:outline-none" data-accordion-trigger>
+            <span class="flex items-center gap-2">
+              <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+              Advanced / Print Specs
+            </span>
+            <svg class="chevron transition-transform duration-200 transform rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          
+          <div class="px-6 py-4 border-t border-hairline bg-canvas-soft space-y-4 accordion-content">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label for="select-error-level" class="block text-xs font-mono uppercase text-body mb-2">Error Correction</label>
+                <select id="select-error-level" class="opt-control h-10 px-3 bg-canvas border border-hairline rounded-sm text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary focus-visible:ring-1 focus-visible:ring-primary focus-visible:outline-none w-full cursor-pointer transition-colors">
+                  <option value="L">Low (7% recovery)</option>
+                  <option value="M" selected>Medium (15% recovery)</option>
+                  <option value="Q">Quartile (25% recovery)</option>
+                  <option value="H">High (30% recovery)</option>
+                </select>
+              </div>
+              <div>
+                <label for="select-resolution" class="block text-xs font-mono uppercase text-body mb-2">PNG Resolution</label>
+                <select id="select-resolution" class="opt-control h-10 px-3 bg-canvas border border-hairline rounded-sm text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary focus-visible:ring-1 focus-visible:ring-primary focus-visible:outline-none w-full cursor-pointer transition-colors">
+                  <option value="256">256 x 256 px</option>
+                  <option value="512" selected>512 x 512 px (Standard)</option>
+                  <option value="1024">1024 x 1024 px (High Res)</option>
+                  <option value="2048">2048 x 2048 px (Print)</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Right Column: Sticky Live Preview (5 cols on desktop) -->
+    <div class="lg:col-span-5 lg:sticky lg:top-24 space-y-6">
+      
+      <!-- Live Preview Card -->
+      <div class="bg-canvas border border-hairline rounded-lg p-8 shadow-level-4 flex flex-col items-center justify-center text-center relative overflow-hidden">
+        <!-- Floating active/live label -->
+        <span class="absolute top-4 left-4 inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-medium bg-canvas-soft border border-hairline text-success shadow-sm">
+          <span class="w-1.5 h-1.5 rounded-full bg-success"></span>
+          Live Preview
+        </span>
+
+        <!-- Canvas Container -->
+        <div class="w-full max-w-[280px] aspect-square rounded-md overflow-hidden bg-white shadow-inner flex items-center justify-center border border-hairline p-4 mb-6 relative group">
+          <canvas id="qr-canvas" class="w-full h-full object-contain max-w-full max-h-full transition-opacity duration-300"></canvas>
+          <div id="qr-placeholder" class="hidden flex-col items-center justify-center text-mute gap-2">
+            <svg class="animate-spin text-primary" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg>
+            <span class="text-xs font-mono">Generating matrix…</span>
+          </div>
+        </div>
+
+        <!-- Utility Action Row -->
+        <div class="w-full space-y-3">
+          <div class="grid grid-cols-2 gap-3">
+            <!-- PNG Download -->
+            <button type="button" id="btn-download-png" class="h-10 px-4 bg-primary text-on-primary hover:bg-black font-medium text-xs rounded-full flex items-center justify-center gap-2 cursor-pointer transition-colors shadow-level-2 focus-visible:ring-1 focus-visible:ring-primary focus-visible:outline-none">
+              <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download PNG
+            </button>
+            <!-- SVG Download -->
+            <button type="button" id="btn-download-svg" class="h-10 px-4 bg-canvas border border-hairline text-ink hover:bg-canvas-soft-2 font-medium text-xs rounded-full flex items-center justify-center gap-2 cursor-pointer transition-colors shadow-level-1 focus-visible:ring-1 focus-visible:ring-primary focus-visible:outline-none">
+              <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download SVG
+            </button>
+          </div>
+          
+          <div class="grid grid-cols-2 gap-3">
+            <!-- Copy Image to Clipboard -->
+            <button type="button" id="btn-copy-img" class="h-10 px-4 bg-canvas border border-hairline text-ink hover:bg-canvas-soft-2 font-medium text-xs rounded-full flex items-center justify-center gap-2 cursor-pointer transition-colors shadow-level-1 focus-visible:ring-1 focus-visible:ring-primary focus-visible:outline-none">
+              <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy Image
+            </button>
+            <!-- Copy SVG Code to Clipboard -->
+            <button type="button" id="btn-copy-svg" class="h-10 px-4 bg-canvas border border-hairline text-ink hover:bg-canvas-soft-2 font-medium text-xs rounded-full flex items-center justify-center gap-2 cursor-pointer transition-colors shadow-level-1 focus-visible:ring-1 focus-visible:ring-primary focus-visible:outline-none">
+              <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+              Copy SVG Code
+            </button>
+          </div>
+
+          <button type="button" id="btn-print" class="w-full h-10 bg-canvas-soft hover:bg-canvas-soft-2 border border-hairline text-body font-medium text-xs rounded-full flex items-center justify-center gap-2 cursor-pointer transition-colors mt-2 focus-visible:ring-1 focus-visible:ring-primary focus-visible:outline-none">
+            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+            Print QR Poster
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Divider Line -->
+  <div class="h-px bg-hairline w-full my-12"></div>
+
+  <!-- History Section -->
+  <div class="space-y-6">
+    <div class="flex items-center justify-between">
+      <div>
+        <h2 class="text-xl font-semibold tracking-tight text-ink font-sans">Recently generated.</h2>
+        <p class="text-xs text-body font-sans">Your local browser history of generated QR codes.</p>
+      </div>
+      <button type="button" id="btn-clear-history" class="hidden h-8 px-3 text-xs font-medium text-error hover:bg-error-soft rounded-sm transition-colors cursor-pointer flex items-center gap-1 focus-visible:ring-1 focus-visible:ring-error focus-visible:outline-none">
+        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+        Clear All
+      </button>
+    </div>
+
+    <!-- History empty state -->
+    <div id="history-empty" class="bg-canvas-soft border border-dashed border-hairline rounded-lg py-12 text-center text-body">
+      <svg aria-hidden="true" class="mx-auto text-mute mb-3" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      <p class="text-sm font-medium">No history yet</p>
+      <p class="text-xs text-mute mt-1">Generated QR codes will appear here for fast re-downloading.</p>
+    </div>
+
+    <!-- History list grid -->
+    <div id="history-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 hidden">
+      <!-- Dynamically filled template -->
+    </div>
+  </div>
+</div>
+
+<!-- Global Success Toast Notification -->
+<div id="toast-success" role="status" aria-live="polite" class="fixed bottom-6 right-6 z-50 bg-primary text-on-primary rounded-md px-4 py-3 shadow-level-5 flex items-center gap-2 transform translate-y-12 opacity-0 pointer-events-none transition-all duration-300">
+  <svg class="text-success" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+  <span id="toast-message" class="text-xs font-medium font-sans">Copied to clipboard.</span>
+</div>
+
+<script>
+  // Dynamic client logic for tabs, forms, accordion, history and QR canvas rendering.
+  import QRCode from 'qrcode';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    // Canvas Fallback for roundRect
+    const canvasObj = document.getElementById('qr-canvas') as HTMLCanvasElement;
+    if (canvasObj) {
+      const ctx = canvasObj.getContext('2d');
+      if (ctx && !ctx.roundRect) {
+        ctx.roundRect = function (x, y, w, h, r) {
+          if (typeof r === 'number') {
+            r = [r, r, r, r];
+          }
+          if (r.length === 1) r = [r[0], r[0], r[0], r[0]];
+          if (r.length === 2) r = [r[0], r[1], r[0], r[1]];
+          if (r.length === 3) r = [r[0], r[1], r[2], r[1]];
+          this.beginPath();
+          this.moveTo(x + r[0], y);
+          this.lineTo(x + w - r[1], y);
+          this.quadraticCurveTo(x + w, y, x + w, y + r[1]);
+          this.lineTo(x + w, y + h - r[2]);
+          this.quadraticCurveTo(x + w, y + h, x + w - r[2], y + h);
+          this.lineTo(x + r[3], y + h);
+          this.quadraticCurveTo(x, y + h, x, y + h - r[3]);
+          this.lineTo(x, y + r[0]);
+          this.quadraticCurveTo(x, y, x + r[0], y);
+          this.closePath();
+          return this;
+        };
+      }
+    }
+
+    // Logo image tracking
+    let uploadedLogoImage: HTMLImageElement | null = null;
+    let uploadedLogoFilename = '';
+    let uploadedLogoDataUrl = ''; // Base64 data for SVG inclusion
+
+    // --- State variables ---
+    let activeTab = 'url';
+    const historyKey = 'universal_qr_history_v1';
+
+    // --- DOM Elements ---
+    const tabsContainer = document.getElementById('content-tabs');
+    const tabPanes = document.querySelectorAll('.tab-pane');
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const inputs = document.querySelectorAll('.form-input-box, .opt-control');
+    const qrCanvas = document.getElementById('qr-canvas') as HTMLCanvasElement;
+    
+    // Logo Upload controls
+    const logoUpload = document.getElementById('logo-upload') as HTMLInputElement;
+    const logoFilename = document.getElementById('logo-filename');
+    const btnClearLogo = document.getElementById('btn-clear-logo');
+    const logoSettingsPanel = document.getElementById('logo-settings-panel');
+    const logoSizeSlider = document.getElementById('logo-size-slider') as HTMLInputElement;
+    const logoSizeValue = document.getElementById('logo-size-value');
+    
+    // Custom Color Input Bindings
+    const colorFg = document.getElementById('color-fg') as HTMLInputElement;
+    const colorFgText = document.getElementById('color-fg-text') as HTMLInputElement;
+    const colorBg = document.getElementById('color-bg') as HTMLInputElement;
+    const colorBgText = document.getElementById('color-bg-text') as HTMLInputElement;
+    const checkTransparent = document.getElementById('check-transparent') as HTMLInputElement;
+    
+    // Action Buttons
+    const btnDownloadPng = document.getElementById('btn-download-png');
+    const btnDownloadSvg = document.getElementById('btn-download-svg');
+    const btnCopyImg = document.getElementById('btn-copy-img');
+    const btnCopySvg = document.getElementById('btn-copy-svg');
+    const btnPrint = document.getElementById('btn-print');
+    
+    // History DOM elements
+    const historyEmpty = document.getElementById('history-empty');
+    const historyGrid = document.getElementById('history-grid');
+    const btnClearHistory = document.getElementById('btn-clear-history');
+    
+    // Toast elements
+    const toast = document.getElementById('toast-success');
+    const toastMsg = document.getElementById('toast-message');
+
+    // --- Tabs Logic ---
+    if (tabsContainer) {
+      tabsContainer.addEventListener('click', (e) => {
+        const target = e.target as HTMLElement;
+        const button = target.closest('.tab-btn');
+        if (!button) return;
+
+        const tab = button.getAttribute('data-tab');
+        if (!tab) return;
+
+        activeTab = tab;
+
+        // Update button states
+        tabBtns.forEach((btn) => {
+          btn.classList.remove('active', 'bg-primary', 'text-on-primary');
+          btn.classList.add('text-body', 'hover:text-ink', 'hover:bg-canvas-soft-2');
+          btn.setAttribute('aria-selected', 'false');
+        });
+        button.classList.add('active', 'bg-primary', 'text-on-primary');
+        button.classList.remove('text-body', 'hover:text-ink', 'hover:bg-canvas-soft-2');
+        button.setAttribute('aria-selected', 'true');
+
+        // Toggle visibility of panels
+        tabPanes.forEach((pane) => pane.classList.add('hidden'));
+        const targetPanel = document.getElementById(`tab-content-${tab}`);
+        if (targetPanel) targetPanel.classList.remove('hidden');
+
+        triggerQrUpdate();
+      });
+    }
+
+    // --- Accordion Toggle Logic ---
+    const accordionTriggers = document.querySelectorAll('[data-accordion-trigger]');
+    accordionTriggers.forEach((trigger) => {
+      trigger.addEventListener('click', () => {
+        const item = trigger.closest('.accordion-item');
+        if (!item) return;
+
+        const chevron = trigger.querySelector('.chevron');
+        const content = item.querySelector('.accordion-content');
+
+        if (content) {
+          content.classList.toggle('hidden');
+          chevron?.classList.toggle('rotate-180');
+        }
+      });
+    });
+
+    // Collapse all accordions except the first on load
+    const accordionItems = document.querySelectorAll('.accordion-item');
+    accordionItems.forEach((item, index) => {
+      if (index > 0) {
+        const trigger = item.querySelector('[data-accordion-trigger]');
+        const content = item.querySelector('.accordion-content');
+        const chevron = trigger?.querySelector('.chevron');
+        
+        content?.classList.add('hidden');
+        chevron?.classList.remove('rotate-180');
+      }
+    });
+
+    // --- Color Picker Dual Inputs Sync ---
+    if (colorFg && colorFgText) {
+      colorFg.addEventListener('input', () => {
+        colorFgText.value = colorFg.value.toUpperCase();
+        triggerQrUpdate();
+      });
+      colorFgText.addEventListener('input', () => {
+        if (/^#[0-9A-F]{6}$/i.test(colorFgText.value)) {
+          colorFg.value = colorFgText.value;
+          triggerQrUpdate();
+        }
+      });
+    }
+
+    if (colorBg && colorBgText) {
+      colorBg.addEventListener('input', () => {
+        colorBgText.value = colorBg.value.toUpperCase();
+        triggerQrUpdate();
+      });
+      colorBgText.addEventListener('input', () => {
+        if (/^#[0-9A-F]{6}$/i.test(colorBgText.value)) {
+          colorBg.value = colorBgText.value;
+          triggerQrUpdate();
+        }
+      });
+    }
+
+    // Transparent bg sync
+    if (checkTransparent && colorBg && colorBgText) {
+      checkTransparent.addEventListener('change', () => {
+        const isTransparent = checkTransparent.checked;
+        colorBg.disabled = isTransparent;
+        colorBgText.disabled = isTransparent;
+        if (isTransparent) {
+          colorBgText.classList.add('opacity-50');
+        } else {
+          colorBgText.classList.remove('opacity-50');
+        }
+        triggerQrUpdate();
+      });
+    }
+
+    // Color Presets Handlers
+    const presetButtons = document.querySelectorAll('.preset-theme-btn');
+    presetButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const fg = btn.getAttribute('data-fg');
+        const bg = btn.getAttribute('data-bg');
+        
+        presetButtons.forEach(b => {
+          const tick = b.querySelector('.active-check');
+          tick?.classList.remove('scale-100');
+          tick?.classList.add('scale-0');
+        });
+
+        const activeTick = btn.querySelector('.active-check');
+        activeTick?.classList.remove('scale-0');
+        activeTick?.classList.add('scale-100');
+
+        if (fg && bg) {
+          colorFg.value = fg;
+          colorFgText.value = fg.toUpperCase();
+          colorBg.value = bg;
+          colorBgText.value = bg.toUpperCase();
+          checkTransparent.checked = false;
+          colorBg.disabled = false;
+          colorBgText.disabled = false;
+          colorBgText.classList.remove('opacity-50');
+          triggerQrUpdate();
+        }
+      });
+    });
+
+    // Make the first theme check active on start
+    const firstPreset = presetButtons[0];
+    if (firstPreset) {
+      const tick = firstPreset.querySelector('.active-check');
+      tick?.classList.remove('scale-0');
+      tick?.classList.add('scale-100');
+    }
+
+    // --- Logo Upload Logic ---
+    if (logoUpload) {
+      logoUpload.addEventListener('change', (e) => {
+        const target = e.target as HTMLInputElement;
+        const files = target.files;
+        if (!files || files.length === 0) return;
+
+        const file = files[0];
+        uploadedLogoFilename = file.name;
+        
+        if (logoFilename) logoFilename.textContent = file.name;
+        btnClearLogo?.classList.remove('hidden');
+        logoSettingsPanel?.classList.remove('hidden');
+
+        // Automatically boost error correction level to HIGH (H) to compensate for embedded logo obstruction
+        const selectErrorLevel = document.getElementById('select-error-level') as HTMLInputElement;
+        if (selectErrorLevel) {
+          selectErrorLevel.value = 'H';
+        }
+
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          const img = new Image();
+          img.onload = () => {
+            uploadedLogoImage = img;
+            uploadedLogoDataUrl = event.target?.result as string;
+            triggerQrUpdate();
+          };
+          img.src = event.target?.result as string;
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    if (btnClearLogo) {
+      btnClearLogo.addEventListener('click', () => {
+        uploadedLogoImage = null;
+        uploadedLogoFilename = '';
+        uploadedLogoDataUrl = '';
+        if (logoUpload) logoUpload.value = '';
+        if (logoFilename) logoFilename.textContent = 'No file uploaded';
+        btnClearLogo.classList.add('hidden');
+        logoSettingsPanel?.classList.add('hidden');
+
+        // Reset error correction back to Medium (M) if not custom overridden
+        const selectErrorLevel = document.getElementById('select-error-level') as HTMLInputElement;
+        if (selectErrorLevel) {
+          selectErrorLevel.value = 'M';
+        }
+
+        triggerQrUpdate();
+      });
+    }
+
+    if (logoSizeSlider && logoSizeValue) {
+      logoSizeSlider.addEventListener('input', () => {
+        logoSizeValue.textContent = `${logoSizeSlider.value}%`;
+        triggerQrUpdate();
+      });
+    }
+
+    // --- QR Code Content Formulator ---
+    function generateQrContent(): string {
+      switch (activeTab) {
+        case 'url':
+          const urlInput = (document.getElementById('input-url') as HTMLInputElement)?.value.trim();
+          return urlInput || 'https://example.com';
+          
+        case 'wifi':
+          const ssid = (document.getElementById('input-wifi-ssid') as HTMLInputElement)?.value.trim() || 'SSID';
+          const enc = (document.getElementById('input-wifi-encryption') as HTMLInputElement)?.value || 'WPA';
+          const pw = (document.getElementById('input-wifi-password') as HTMLInputElement)?.value || '';
+          const hidden = (document.getElementById('input-wifi-hidden') as HTMLInputElement)?.checked ? 'true' : 'false';
+          // Format: WIFI:S:SSID;T:WPA;P:PASSWORD;H:true;;
+          return `WIFI:S:${ssid};T:${enc};P:${pw};H:${hidden};;`;
+          
+        case 'contact':
+          const first = (document.getElementById('input-contact-first') as HTMLInputElement)?.value.trim();
+          const last = (document.getElementById('input-contact-last') as HTMLInputElement)?.value.trim();
+          const phone = (document.getElementById('input-contact-phone') as HTMLInputElement)?.value.trim();
+          const email = (document.getElementById('input-contact-email') as HTMLInputElement)?.value.trim();
+          const org = (document.getElementById('input-contact-org') as HTMLInputElement)?.value.trim();
+          const job = (document.getElementById('input-contact-title') as HTMLInputElement)?.value.trim();
+          const web = (document.getElementById('input-contact-url') as HTMLInputElement)?.value.trim();
+          const addr = (document.getElementById('input-contact-address') as HTMLInputElement)?.value.trim();
+
+          // Build vCard string
+          let vcard = 'BEGIN:VCARD\nVERSION:3.0\n';
+          if (first || last) vcard += `N:${last || ''};${first || ''};;;\nFN:${first || ''} ${last || ''}\n`;
+          if (org) vcard += `ORG:${org}\n`;
+          if (job) vcard += `TITLE:${job}\n`;
+          if (phone) vcard += `TEL;TYPE=CELL:${phone}\n`;
+          if (email) vcard += `EMAIL;TYPE=PREF,INTERNET:${email}\n`;
+          if (web) vcard += `URL:${web}\n`;
+          if (addr) vcard += `ADR;TYPE=WORK:;;${addr};;;;\n`;
+          vcard += 'END:VCARD';
+          return vcard;
+
+        case 'email':
+          const to = (document.getElementById('input-email-to') as HTMLInputElement)?.value.trim();
+          const subj = (document.getElementById('input-email-subject') as HTMLInputElement)?.value.trim();
+          const body = (document.getElementById('input-email-body') as HTMLTextAreaElement)?.value.trim();
+          // Format: MATMSG:TO:email;SUB:subject;BODY:message;;
+          return `MATMSG:TO:${to || ''};SUB:${encodeURIComponent(subj || '')};BODY:${encodeURIComponent(body || '')};;`;
+
+        case 'sms':
+          const smsPhone = (document.getElementById('input-sms-phone') as HTMLInputElement)?.value.trim();
+          const smsBody = (document.getElementById('input-sms-body') as HTMLTextAreaElement)?.value.trim();
+          // Format: smsto:number:message
+          return `SMSTO:${smsPhone || ''}:${smsBody || ''}`;
+
+        case 'phone':
+          const phoneNum = (document.getElementById('input-phone-num') as HTMLInputElement)?.value.trim();
+          return `TEL:${phoneNum || ''}`;
+
+        default:
+          return 'https://example.com';
+      }
+    }
+
+    // --- Custom Canvas Rendering Engine ---
+    let renderingTimeout: number;
+
+    function triggerQrUpdate() {
+      clearTimeout(renderingTimeout);
+      renderingTimeout = setTimeout(() => {
+        updateQrCode();
+      }, 150) as unknown as number;
+    }
+
+    function updateQrCode() {
+      const placeholder = document.getElementById('qr-placeholder');
+      if (placeholder) placeholder.classList.add('hidden');
+      if (qrCanvas) qrCanvas.classList.remove('opacity-20');
+
+      try {
+        const content = generateQrContent();
+        
+        // Grab current style selections
+        const dotStyle = (document.getElementById('select-dot-style') as HTMLSelectElement)?.value || 'square';
+        const finderStyle = (document.getElementById('select-finder-style') as HTMLSelectElement)?.value || 'square';
+        const errorCorrection = (document.getElementById('select-error-level') as HTMLSelectElement)?.value || 'M';
+        const fgColorVal = colorFg.value;
+        const bgColorVal = colorBg.value;
+        const isTransparent = checkTransparent.checked;
+        const resolution = parseInt((document.getElementById('select-resolution') as HTMLSelectElement)?.value || '512');
+        const logoSize = parseFloat(logoSizeSlider.value) / 100;
+
+        // Generate base QR code modules
+        const qr = QRCode.create(content, { errorCorrectionLevel: errorCorrection as QRCode.QRCodeErrorCorrectionLevel });
+        const size = qr.modules.size;
+        const ctx = qrCanvas.getContext('2d');
+        if (!ctx) return;
+
+        // Set canvas resolutions
+        qrCanvas.width = resolution;
+        qrCanvas.height = resolution;
+        ctx.clearRect(0, 0, resolution, resolution);
+
+        // Draw background
+        if (!isTransparent) {
+          ctx.fillStyle = bgColorVal;
+          ctx.fillRect(0, 0, resolution, resolution);
+        }
+
+        // Margin in modules
+        const margin = 4;
+        const totalModules = size + margin * 2;
+        const cellSize = resolution / totalModules;
+        const offset = margin * cellSize;
+
+        ctx.fillStyle = fgColorVal;
+        ctx.strokeStyle = fgColorVal;
+
+        // Boundaries check
+        const isFinder = (row: number, col: number) => {
+          return (
+            (row < 7 && col < 7) || // Top-left
+            (row < 7 && col >= size - 7) || // Top-right
+            (row >= size - 7 && col < 7) // Bottom-left
+          );
+        };
+
+        // Draw individual modules
+        for (let r = 0; r < size; r++) {
+          for (let c = 0; c < size; c++) {
+            if (isFinder(r, c)) continue;
+            
+            const isDark = qr.modules.get(r, c);
+            if (!isDark) continue;
+
+            const x = offset + c * cellSize;
+            const y = offset + r * cellSize;
+
+            if (dotStyle === 'dots') {
+              ctx.beginPath();
+              ctx.arc(x + cellSize / 2, y + cellSize / 2, cellSize * 0.4, 0, 2 * Math.PI);
+              ctx.fill();
+            } else if (dotStyle === 'rounded') {
+              ctx.beginPath();
+              ctx.roundRect(x + cellSize * 0.05, y + cellSize * 0.05, cellSize * 0.9, cellSize * 0.9, cellSize * 0.25);
+              ctx.fill();
+            } else {
+              // Standard sharp square
+              ctx.fillRect(x, y, cellSize, cellSize);
+            }
+          }
+        }
+
+        // Draw Corner Finder Patterns
+        const drawFinderPattern = (x: number, y: number) => {
+          ctx.lineWidth = cellSize;
+          ctx.strokeStyle = fgColorVal;
+          ctx.fillStyle = fgColorVal;
+
+          const rOuter = finderStyle === 'rounded' ? cellSize * 1.5 : 0;
+          const rInner = finderStyle === 'rounded' ? cellSize * 0.5 : 0;
+
+          // Draw outer stroke square (7 modules wide, but stroke draws from center, so 6-module span)
+          ctx.beginPath();
+          ctx.roundRect(x + cellSize / 2, y + cellSize / 2, cellSize * 6, cellSize * 6, rOuter);
+          ctx.stroke();
+
+          // Draw solid inner square (3x3 modules)
+          ctx.beginPath();
+          ctx.roundRect(x + cellSize * 2, y + cellSize * 2, cellSize * 3, cellSize * 3, rInner);
+          ctx.fill();
+        };
+
+        // Draw finder eyes
+        drawFinderPattern(offset, offset); // TL
+        drawFinderPattern(offset + (size - 7) * cellSize, offset); // TR
+        drawFinderPattern(offset, offset + (size - 7) * cellSize); // BL
+
+        // Draw Center Logo overlay if uploaded
+        if (uploadedLogoImage) {
+          const qrRealSize = size * cellSize;
+          const maxLogoSize = qrRealSize * logoSize;
+          
+          const logoX = offset + (qrRealSize - maxLogoSize) / 2;
+          const logoY = offset + (qrRealSize - maxLogoSize) / 2;
+
+          // Background box padding
+          const bgPadding = cellSize * 0.5;
+          const cardSize = maxLogoSize + bgPadding * 2;
+          const cardX = logoX - bgPadding;
+          const cardY = logoY - bgPadding;
+
+          // Draw backdrop card
+          ctx.fillStyle = isTransparent ? '#ffffff' : bgColorVal;
+          ctx.beginPath();
+          ctx.roundRect(cardX, cardY, cardSize, cardSize, finderStyle === 'rounded' ? cellSize : 2);
+          ctx.fill();
+
+          // Delicate outline around logo card
+          ctx.lineWidth = 1;
+          ctx.strokeStyle = '#ebebeb';
+          ctx.stroke();
+
+          // Render Logo
+          ctx.drawImage(uploadedLogoImage, logoX, logoY, maxLogoSize, maxLogoSize);
+        }
+
+      } catch (err) {
+        console.error('QR Engine Render Error:', err);
+      }
+    }
+
+    // Attach listeners to all inputs to refresh QR code on type or select
+    inputs.forEach((input) => {
+      input.addEventListener('input', triggerQrUpdate);
+      input.addEventListener('change', triggerQrUpdate);
+    });
+
+    // --- PNG/SVG Exporters ---
+    if (btnDownloadPng) {
+      btnDownloadPng.addEventListener('click', () => {
+        if (!qrCanvas) return;
+
+        // Force a brief check that we have content
+        const url = qrCanvas.toDataURL('image/png');
+        const link = document.createElement('a');
+        link.download = `qrcode_${activeTab}_${Date.now()}.png`;
+        link.href = url;
+        link.click();
+        
+        saveToHistory();
+        showToast('PNG QR code downloaded successfully.');
+      });
+    }
+
+    if (btnDownloadSvg) {
+      btnDownloadSvg.addEventListener('click', () => {
+        const svgString = getSvgString();
+        const blob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.download = `qrcode_${activeTab}_${Date.now()}.svg`;
+        link.href = url;
+        link.click();
+        URL.revokeObjectURL(url);
+
+        saveToHistory();
+        showToast('SVG vector QR code downloaded successfully.');
+      });
+    }
+
+    if (btnCopyImg) {
+      btnCopyImg.addEventListener('click', () => {
+        if (!qrCanvas) return;
+
+        qrCanvas.toBlob((blob) => {
+          if (!blob) return;
+          try {
+            const item = new ClipboardItem({ 'image/png': blob });
+            navigator.clipboard.write([item]).then(() => {
+              showToast('QR Image copied to clipboard.');
+              saveToHistory();
+            });
+          } catch (err) {
+            console.error('Copy Image Clipboard API failed:', err);
+            showToast('Unable to copy image. Try downloading it instead.');
+          }
+        }, 'image/png');
+      });
+    }
+
+    if (btnCopySvg) {
+      btnCopySvg.addEventListener('click', () => {
+        const svgString = getSvgString();
+        navigator.clipboard.writeText(svgString).then(() => {
+          showToast('SVG markup code copied to clipboard.');
+          saveToHistory();
+        });
+      });
+    }
+
+    if (btnPrint) {
+      btnPrint.addEventListener('click', () => {
+        const contentVal = generateQrContent();
+        
+        // Open a clean printable print page layout in an iframe or popup
+        const printWindow = window.open('', '_blank');
+        if (!printWindow) return;
+
+        const dataUrl = qrCanvas.toDataURL('image/png');
+        
+        printWindow.document.write(`
+          <!DOCTYPE html>
+          <html>
+            <head>
+              <title>Print QR Code Poster</title>
+              <style>
+                body {
+                  font-family: system-ui, -apple-system, sans-serif;
+                  text-align: center;
+                  padding: 40px;
+                  color: #171717;
+                }
+                .container {
+                  max-width: 600px;
+                  margin: 0 auto;
+                  border: 1px solid #ebebeb;
+                  padding: 40px;
+                  border-radius: 12px;
+                  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+                }
+                img {
+                  width: 320px;
+                  height: 320px;
+                  margin-bottom: 24px;
+                }
+                h2 { margin-bottom: 10px; font-weight: 600; }
+                p { font-size: 14px; color: #4d4d4d; word-break: break-all; max-width: 80%; margin: 0 auto 30px; }
+                .footer { font-size: 11px; color: #888888; margin-top: 40px; font-family: monospace; }
+                @media print {
+                  body { padding: 0; }
+                  .container { border: none; box-shadow: none; padding: 20px; }
+                  button { display: none; }
+                }
+                button {
+                  background: #171717;
+                  color: white;
+                  border: none;
+                  padding: 10px 20px;
+                  font-size: 14px;
+                  font-weight: 500;
+                  border-radius: 20px;
+                  cursor: pointer;
+                  margin-bottom: 20px;
+                }
+                button:hover { background: black; }
+              </style>
+            </head>
+            <body>
+              <div class="container">
+                <button onclick="window.print()">Print QR Poster</button>
+                <br />
+                <img src="${dataUrl}" alt="QR Code" />
+                <h2>Scan QR Code</h2>
+                <p>${contentVal}</p>
+                <div class="footer">Universal QR Code Generator • ${new Date().toLocaleDateString()}</div>
+              </div>
+            </body>
+          </html>
+        `);
+        printWindow.document.close();
+      });
+    }
+
+    // Helper to generate SVG xml content matching the canvas
+    function getSvgString(): string {
+      const content = generateQrContent();
+      const dotStyle = (document.getElementById('select-dot-style') as HTMLSelectElement)?.value || 'square';
+      const finderStyle = (document.getElementById('select-finder-style') as HTMLSelectElement)?.value || 'square';
+      const errorCorrection = (document.getElementById('select-error-level') as HTMLSelectElement)?.value || 'M';
+      const fgColorVal = colorFg.value;
+      const bgColorVal = checkTransparent.checked ? 'none' : colorBg.value;
+      const logoSize = parseFloat(logoSizeSlider.value) / 100;
+
+      const qr = QRCode.create(content, { errorCorrectionLevel: errorCorrection as QRCode.QRCodeErrorCorrectionLevel });
+      const size = qr.modules.size;
+      const margin = 4;
+      const totalModules = size + margin * 2;
+      
+      let svgPaths: string[] = [];
+
+      const isFinder = (row: number, col: number) => {
+        return (
+          (row < 7 && col < 7) ||
+          (row < 7 && col >= size - 7) ||
+          (row >= size - 7 && col < 7)
+        );
+      };
+
+      // Traverse modules
+      for (let r = 0; r < size; r++) {
+        for (let c = 0; c < size; c++) {
+          if (isFinder(r, c)) continue;
+          
+          const isDark = qr.modules.get(r, c);
+          if (!isDark) continue;
+
+          const x = margin + c;
+          const y = margin + r;
+
+          if (dotStyle === 'dots') {
+            svgPaths.push(`<circle cx="${x + 0.5}" cy="${y + 0.5}" r="0.4" fill="${fgColorVal}" />`);
+          } else if (dotStyle === 'rounded') {
+            svgPaths.push(`<rect x="${x + 0.05}" y="${y + 0.05}" width="0.9" height="0.9" rx="0.25" ry="0.25" fill="${fgColorVal}" />`);
+          } else {
+            svgPaths.push(`<rect x="${x}" y="${y}" width="1" height="1" fill="${fgColorVal}" />`);
+          }
+        }
+      }
+
+      // Draw SVG Finder patterns
+      const drawSvgFinder = (x: number, y: number) => {
+        const rOuter = finderStyle === 'rounded' ? 1.5 : 0;
+        const rInner = finderStyle === 'rounded' ? 0.5 : 0;
+
+        // Custom path constructs or rect overlays
+        // Drawing outer frame as a stroke rect
+        const outerRect = `<rect x="${x + 0.5}" y="${y + 0.5}" width="6" height="6" rx="${rOuter}" ry="${rOuter}" fill="none" stroke="${fgColorVal}" stroke-width="1" />`;
+        const innerRect = `<rect x="${x + 2}" y="${y + 2}" width="3" height="3" rx="${rInner}" ry="${rInner}" fill="${fgColorVal}" />`;
+        
+        svgPaths.push(outerRect);
+        svgPaths.push(innerRect);
+      };
+
+      drawSvgFinder(margin, margin);
+      drawSvgFinder(margin + size - 7, margin);
+      drawSvgFinder(margin, margin + size - 7);
+
+      // Embedded logo block if exist
+      if (uploadedLogoImage && uploadedLogoDataUrl) {
+        const maxLogoSize = size * logoSize;
+        const logoX = margin + (size - maxLogoSize) / 2;
+        const logoY = margin + (size - maxLogoSize) / 2;
+        const bgPadding = 0.5;
+        
+        const cardSize = maxLogoSize + bgPadding * 2;
+        const cardX = logoX - bgPadding;
+        const cardY = logoY - bgPadding;
+        const cardRadius = finderStyle === 'rounded' ? 1 : 0.2;
+        
+        const logoBgColor = bgColorVal === 'none' ? '#ffffff' : bgColorVal;
+
+        // Draw backdrop logo card path
+        svgPaths.push(`<rect x="${cardX}" y="${cardY}" width="${cardSize}" height="${cardSize}" rx="${cardRadius}" fill="${logoBgColor}" stroke="#ebebeb" stroke-width="0.05" />`);
+        
+        // Base64 Logo image embedded
+        svgPaths.push(`<image href="${uploadedLogoDataUrl}" x="${logoX}" y="${logoY}" width="${maxLogoSize}" height="${maxLogoSize}" />`);
+      }
+
+      return `<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${totalModules} ${totalModules}" width="100%" height="100%">
+  ${bgColorVal !== 'none' ? `<rect width="${totalModules}" height="${totalModules}" fill="${bgColorVal}" />` : ''}
+  <g>
+    ${svgPaths.join('\n    ')}
+  </g>
+</svg>`;
+    }
+
+    // --- Success Toast Display ---
+    function showToast(msg: string) {
+      if (!toast || !toastMsg) return;
+      toastMsg.textContent = msg;
+      
+      toast.classList.remove('translate-y-12', 'opacity-0', 'pointer-events-none');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      setTimeout(() => {
+        toast.classList.add('translate-y-12', 'opacity-0', 'pointer-events-none');
+        toast.classList.remove('translate-y-0', 'opacity-100');
+      }, 3000);
+    }
+
+    // --- Local Storage History Logs ---
+    interface HistoryItem {
+      id: string;
+      tab: string;
+      data: string;
+      formData: Record<string, string | boolean>;
+      thumbnail: string;
+      date: string;
+    }
+
+    function saveToHistory() {
+      const content = generateQrContent();
+      const thumbnailData = qrCanvas.toDataURL('image/png');
+      
+      // Grab all form input values
+      const formData: Record<string, string | boolean> = {};
+      const inputs = document.querySelectorAll('.form-input-box, .opt-control');
+      inputs.forEach(el => {
+        const id = el.id;
+        if (!id) return;
+        if (el instanceof HTMLInputElement) {
+          if (el.type === 'checkbox') {
+            formData[id] = el.checked;
+          } else {
+            formData[id] = el.value;
+          }
+        } else if (el instanceof HTMLSelectElement || el instanceof HTMLTextAreaElement) {
+          formData[id] = el.value;
+        }
+      });
+
+      // Also grab logo states
+      formData['logo_uploaded'] = !!uploadedLogoImage;
+      formData['logo_filename'] = uploadedLogoFilename;
+      formData['logo_data_url'] = uploadedLogoDataUrl;
+      formData['active_tab'] = activeTab;
+
+      const item: HistoryItem = {
+        id: `qr_${Date.now()}`,
+        tab: activeTab.toUpperCase(),
+        data: content.length > 40 ? content.substring(0, 37) + '...' : content,
+        formData,
+        thumbnail: thumbnailData,
+        date: new Date().toLocaleDateString(undefined, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })
+      };
+
+      try {
+        let history = JSON.parse(localStorage.getItem(historyKey) || '[]') as HistoryItem[];
+        
+        // Remove duplicates of same content to avoid flooding
+        history = history.filter(h => h.data !== item.data || h.tab !== item.tab);
+        
+        // Limit history to 6 records
+        history.unshift(item);
+        if (history.length > 6) history.pop();
+
+        localStorage.setItem(historyKey, JSON.stringify(history));
+        loadHistoryList();
+      } catch (err) {
+        console.error('Failed to write history in localStorage:', err);
+      }
+    }
+
+    function loadHistoryList() {
+      try {
+        const history = JSON.parse(localStorage.getItem(historyKey) || '[]') as HistoryItem[];
+        
+        if (!historyGrid || !historyEmpty || !btnClearHistory) return;
+
+        if (history.length === 0) {
+          historyEmpty.classList.remove('hidden');
+          historyGrid.classList.add('hidden');
+          btnClearHistory.classList.add('hidden');
+          return;
+        }
+
+        historyEmpty.classList.add('hidden');
+        historyGrid.classList.remove('hidden');
+        btnClearHistory.classList.remove('hidden');
+
+        historyGrid.innerHTML = '';
+
+        history.forEach((item) => {
+          const card = document.createElement('div');
+          card.className = 'bg-canvas border border-hairline rounded-md p-4 flex gap-4 items-center shadow-level-2 group hover:border-primary transition-colors';
+          
+          card.innerHTML = `
+            <div class="w-16 h-16 bg-white border border-hairline rounded p-1 flex-shrink-0 flex items-center justify-center">
+              <img src="${item.thumbnail}" alt="QR Thumbnail" class="w-full h-full object-contain" />
+            </div>
+            <div class="flex-grow min-w-0">
+              <div class="flex items-center gap-1.5 mb-0.5">
+                <span class="text-[10px] font-mono font-semibold tracking-wide uppercase px-1.5 py-0.5 rounded bg-canvas-soft border border-hairline text-body">${item.tab}</span>
+                <span class="text-[9px] text-mute font-mono">${item.date}</span>
+              </div>
+              <p class="text-xs text-ink truncate font-mono mb-2" title="${item.data}">${item.data}</p>
+              <div class="flex gap-2">
+                <button class="btn-load-h text-[11px] font-medium text-primary hover:underline cursor-pointer" data-id="${item.id}">Load Settings</button>
+                <button class="btn-delete-h text-[11px] font-medium text-mute hover:text-error cursor-pointer" data-id="${item.id}">Delete</button>
+              </div>
+            </div>
+          `;
+
+          // Attach click handlers
+          card.querySelector('.btn-load-h')?.addEventListener('click', () => loadSettingsFromHistory(item.id));
+          card.querySelector('.btn-delete-h')?.addEventListener('click', () => deleteFromHistory(item.id));
+
+          historyGrid.appendChild(card);
+        });
+
+      } catch (err) {
+        console.error('Failed to load history:', err);
+      }
+    }
+
+    function deleteFromHistory(id: string) {
+      try {
+        let history = JSON.parse(localStorage.getItem(historyKey) || '[]') as HistoryItem[];
+        history = history.filter(h => h.id !== id);
+        localStorage.setItem(historyKey, JSON.stringify(history));
+        loadHistoryList();
+        showToast('History item removed.');
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    if (btnClearHistory) {
+      btnClearHistory.addEventListener('click', () => {
+        localStorage.removeItem(historyKey);
+        loadHistoryList();
+        showToast('Local history cleared.');
+      });
+    }
+
+    function loadSettingsFromHistory(id: string) {
+      try {
+        const history = JSON.parse(localStorage.getItem(historyKey) || '[]') as HistoryItem[];
+        const item = history.find(h => h.id === id);
+        if (!item) return;
+
+        const data = item.formData;
+        activeTab = data['active_tab'] as string || 'url';
+
+        // Update Tab active button
+        tabBtns.forEach((btn) => {
+          btn.classList.remove('active', 'bg-primary', 'text-on-primary');
+          btn.classList.add('text-body', 'hover:text-ink', 'hover:bg-canvas-soft-2');
+          btn.setAttribute('aria-selected', 'false');
+          if (btn.getAttribute('data-tab') === activeTab) {
+            btn.classList.add('active', 'bg-primary', 'text-on-primary');
+            btn.classList.remove('text-body', 'hover:text-ink', 'hover:bg-canvas-soft-2');
+            btn.setAttribute('aria-selected', 'true');
+          }
+        });
+
+        // Toggle visibility of panels
+        tabPanes.forEach((pane) => pane.classList.add('hidden'));
+        const targetPanel = document.getElementById(`tab-content-${activeTab}`);
+        if (targetPanel) targetPanel.classList.remove('hidden');
+
+        // Restore form control values
+        Object.keys(data).forEach((key) => {
+          const el = document.getElementById(key);
+          if (!el) return;
+
+          const val = data[key];
+          if (el instanceof HTMLInputElement) {
+            if (el.type === 'checkbox') {
+              el.checked = !!val;
+            } else {
+              el.value = val as string;
+            }
+          } else if (el instanceof HTMLSelectElement || el instanceof HTMLTextAreaElement) {
+            el.value = val as string;
+          }
+        });
+
+        // Handle logo reload
+        const hasLogo = !!data['logo_uploaded'];
+        if (hasLogo && data['logo_data_url']) {
+          uploadedLogoFilename = data['logo_filename'] as string || 'logo.png';
+          uploadedLogoDataUrl = data['logo_data_url'] as string;
+          
+          if (logoFilename) logoFilename.textContent = uploadedLogoFilename;
+          btnClearLogo?.classList.remove('hidden');
+          logoSettingsPanel?.classList.remove('hidden');
+
+          const img = new Image();
+          img.onload = () => {
+            uploadedLogoImage = img;
+            updateQrCode();
+          };
+          img.src = uploadedLogoDataUrl;
+        } else {
+          uploadedLogoImage = null;
+          uploadedLogoFilename = '';
+          uploadedLogoDataUrl = '';
+          if (logoUpload) logoUpload.value = '';
+          if (logoFilename) logoFilename.textContent = 'No file uploaded';
+          btnClearLogo?.classList.add('hidden');
+          logoSettingsPanel?.classList.add('hidden');
+        }
+
+        // Color sync
+        if (colorFg && colorFgText) colorFgText.value = colorFg.value.toUpperCase();
+        if (colorBg && colorBgText) colorBgText.value = colorBg.value.toUpperCase();
+        if (checkTransparent && colorBg && colorBgText) {
+          const isTrans = checkTransparent.checked;
+          colorBg.disabled = isTrans;
+          colorBgText.disabled = isTrans;
+          if (isTrans) colorBgText.classList.add('opacity-50');
+          else colorBgText.classList.remove('opacity-50');
+        }
+
+        updateQrCode();
+        showToast('Settings loaded from history.');
+      } catch (err) {
+        console.error('Failed to load settings from history:', err);
+      }
+    }
+
+    // Initialize QR Code & Load History Grid
+    updateQrCode();
+    loadHistoryList();
+  });
+</script>
+
+<style>
+  /* Slider styling override */
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #171717;
+    cursor: pointer;
+    border: 1px solid #ffffff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+  }
+  input[type="range"]::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #171717;
+    cursor: pointer;
+    border: 1px solid #ffffff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+  }
+</style>

@@ -1,11 +1,129 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import QrGenerator from '../components/QrGenerator.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+// Premium Landing Page for Universal QR Generator
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="Universal QR Code Generator | Premium Designer Utilities">
+  <div class="min-h-screen flex flex-col justify-between relative overflow-hidden bg-canvas-soft isolate">
+
+    
+    <!-- Animated Mesh Gradient Backdrop -->
+    <div class="mesh-gradient-bg"></div>
+
+    <!-- Sticky Navigation Bar -->
+    <header class="sticky top-0 z-50 w-full h-16 bg-canvas/80 backdrop-blur-md border-b border-hairline flex items-center shadow-sm">
+      <div class="w-full max-w-6xl mx-auto px-4 md:px-6 flex items-center justify-between">
+        
+        <!-- Logo -->
+        <a href="/" class="flex items-center gap-2 group cursor-pointer">
+          <!-- Geometric custom QR Symbol (Vercel-like duet) -->
+          <div class="w-7 h-7 bg-primary rounded flex items-center justify-center text-on-primary font-mono text-sm font-semibold select-none group-hover:scale-105 transition-transform">
+            QR
+          </div>
+          <span class="font-sans font-semibold tracking-tight text-ink text-sm">Universal.</span>
+        </a>
+
+        <!-- Center Nav Links (Desktop) -->
+        <nav class="hidden md:flex items-center gap-1 bg-canvas-soft-2/50 border border-hairline/50 p-1 rounded-full text-xs">
+          <a href="#generator" class="px-4 py-1.5 rounded-full font-medium text-ink bg-canvas shadow-sm">Generator</a>
+          <a href="#" class="px-4 py-1.5 rounded-full font-medium text-body hover:text-ink transition-colors">Templates</a>
+          <a href="#" class="px-4 py-1.5 rounded-full font-medium text-body hover:text-ink transition-colors">Developers</a>
+          <a href="#" class="px-4 py-1.5 rounded-full font-medium text-body hover:text-ink transition-colors">Pricing</a>
+        </nav>
+
+        <!-- Right Side CTAs -->
+        <div class="flex items-center gap-2">
+          <a href="#" class="hidden sm:inline-flex h-7 px-3 items-center justify-center bg-canvas hover:bg-canvas-soft-2 border border-hairline rounded-sm text-xs font-medium text-ink transition-colors">
+            Ask AI
+          </a>
+          <a href="#" class="h-7 px-3 inline-flex items-center justify-center bg-canvas hover:bg-canvas-soft-2 rounded-sm text-xs font-medium text-ink transition-colors">
+            Log In
+          </a>
+          <a href="#" class="h-7 px-3 inline-flex items-center justify-center bg-primary hover:bg-black rounded-sm text-xs font-medium text-on-primary transition-colors">
+            Sign Up
+          </a>
+        </div>
+
+      </div>
+    </header>
+
+    <!-- Main Section Workspace -->
+    <main id="generator" class="flex-grow">
+      <QrGenerator />
+    </main>
+
+    <!-- Premium Footer -->
+    <footer class="w-full bg-canvas border-t border-hairline py-16 relative z-10">
+      <div class="w-full max-w-6xl mx-auto px-4 md:px-6">
+        
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
+          
+          <!-- Column 1: Brand details -->
+          <div class="col-span-2 space-y-4">
+            <div class="flex items-center gap-2">
+              <div class="w-6 h-6 bg-primary rounded flex items-center justify-center text-on-primary font-mono text-xs font-semibold">
+                QR
+              </div>
+              <span class="font-sans font-semibold tracking-tight text-ink text-sm">Universal.</span>
+            </div>
+            <p class="text-xs text-body max-w-xs leading-relaxed">
+              An inspired utility crafted for developers, designers, and printing experts. Clean, stark, and vector-perfect.
+            </p>
+          </div>
+
+          <!-- Column 2: Product -->
+          <div class="space-y-3">
+            <h4 class="text-xs font-mono uppercase tracking-wider text-ink font-semibold">Product</h4>
+            <ul class="space-y-2 text-xs text-body">
+              <li><a href="#" class="hover:text-ink transition-colors">Generator</a></li>
+              <li><a href="#" class="hover:text-ink transition-colors">Custom Designs</a></li>
+              <li><a href="#" class="hover:text-ink transition-colors">SVG Vector Export</a></li>
+              <li><a href="#" class="hover:text-ink transition-colors">Print Layouts</a></li>
+            </ul>
+          </div>
+
+          <!-- Column 3: Resources -->
+          <div class="space-y-3">
+            <h4 class="text-xs font-mono uppercase tracking-wider text-ink font-semibold">Resources</h4>
+            <ul class="space-y-2 text-xs text-body">
+              <li><a href="#" class="hover:text-ink transition-colors">API Docs</a></li>
+              <li><a href="#" class="hover:text-ink transition-colors">QR Standards</a></li>
+              <li><a href="#" class="hover:text-ink transition-colors">Usage Policies</a></li>
+              <li><a href="#" class="hover:text-ink transition-colors">vCard Spec</a></li>
+            </ul>
+          </div>
+
+          <!-- Column 4: Legal -->
+          <div class="space-y-3">
+            <h4 class="text-xs font-mono uppercase tracking-wider text-ink font-semibold">Company</h4>
+            <ul class="space-y-2 text-xs text-body">
+              <li><a href="#" class="hover:text-ink transition-colors">About</a></li>
+              <li><a href="#" class="hover:text-ink transition-colors">Privacy Policy</a></li>
+              <li><a href="#" class="hover:text-ink transition-colors">Terms of Service</a></li>
+              <li><a href="#" class="hover:text-ink transition-colors">Contact</a></li>
+            </ul>
+          </div>
+
+        </div>
+
+        <!-- Bottom details row -->
+        <div class="flex flex-col sm:flex-row items-center justify-between border-t border-hairline pt-8 text-xs text-mute font-mono gap-4">
+          <div>
+            © {new Date().getFullYear()} Universal QR Code Tools. All rights reserved.
+          </div>
+          <div class="flex gap-4">
+            <a href="#" class="hover:text-ink transition-colors">GitHub</a>
+            <span>•</span>
+            <a href="#" class="hover:text-ink transition-colors">Status</a>
+            <span>•</span>
+            <a href="#" class="hover:text-ink transition-colors">Feedback</a>
+          </div>
+        </div>
+
+      </div>
+    </footer>
+
+  </div>
 </Layout>
