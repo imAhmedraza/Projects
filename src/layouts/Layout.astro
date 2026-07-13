@@ -56,6 +56,14 @@ const ogImageUrl = new URL(ogImage, canonicalUrl).toString();
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={ogImageUrl} />
 		{jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-3XX57YXJN1"></script>
+		<script is:inline>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+
+			gtag('config', 'G-3XX57YXJN1');
+		</script>
 		<script is:inline>
 			(() => {
 				const storageKey = 'universal-theme-mode';
