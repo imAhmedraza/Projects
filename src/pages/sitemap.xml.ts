@@ -9,7 +9,7 @@ const routes = [
   { path: '/llm.txt', priority: '0.4', changefreq: 'monthly' },
 ];
 
-const fallbackSite = 'http://localhost:4321';
+const fallbackSite = 'http://universal-qr.com';
 const lastmod = new Date().toISOString().split('T')[0];
 
 export function GET({ site }: { site?: URL }) {
