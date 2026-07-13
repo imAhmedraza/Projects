@@ -1,0 +1,48 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const title = 'About Us | Universal QR Code Tools';
+const description = 'Learn about Universal QR Code Tools, a free QR code generator for fast, no sign up QR code creation with custom styling and export options.';
+const canonical = new URL('/about-us/', Astro.site ?? Astro.url.origin).toString();
+---
+
+<Layout title={title} description={description} canonical={canonical}>
+  <main class="flex-grow bg-canvas-soft">
+    <section class="w-full border-b border-hairline bg-canvas py-16 md:py-20">
+      <div class="w-full max-w-7xl mx-auto px-4 md:px-6">
+        <div class="max-w-3xl space-y-5">
+          <p class="text-xs font-mono uppercase text-body">About Us</p>
+          <h1 class="text-4xl md:text-5xl font-semibold tracking-tight text-ink leading-tight text-pretty">
+            A simple QR code tool built for practical work.
+          </h1>
+          <p class="text-base md:text-lg leading-relaxed text-body">
+            Universal QR Code Tools helps people create clean, scannable QR codes without account walls, subscriptions, or unnecessary steps.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="w-full py-16">
+      <div class="w-full max-w-7xl mx-auto px-4 md:px-6 grid gap-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
+        <div class="space-y-3">
+          <p class="text-xs font-mono uppercase text-body">What We Build</p>
+          <h2 class="text-2xl md:text-3xl font-semibold tracking-tight text-ink leading-tight">
+            Free QR generation for everyday use.
+          </h2>
+        </div>
+
+        <div class="space-y-5 text-sm md:text-base leading-relaxed text-body">
+          <p>
+            The app is designed for quick QR code creation across common use cases: website links, WiFi access, contact cards, email, SMS, and phone shortcuts. It also supports visual customization, logo uploads, and PNG or SVG downloads so the final code can work in both digital and printed materials.
+          </p>
+          <p>
+            Our focus is on a focused workflow: choose a QR type, enter the content, preview the result, adjust the style, test the scan, and export the finished file. That makes the tool useful for small businesses, designers, teachers, restaurants, event teams, developers, and anyone who needs a reliable QR code quickly.
+          </p>
+          <p>
+            Universal QR Code Tools is intentionally lightweight. The generator does not require sign up, and recent QR history is stored locally in your browser for convenience.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>

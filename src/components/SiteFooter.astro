@@ -1,0 +1,40 @@
+---
+import ThemeSwitcher from './ThemeSwitcher.astro';
+
+const footerNav = [
+  { href: '/', label: 'Home' },
+  { href: '/about-us/', label: 'About Us' },
+  { href: '/privacy-policy/', label: 'Privacy Policy' },
+  { href: '/terms-and-conditions/', label: 'Terms & Conditions' },
+  { href: '/contact-us/', label: 'Contact Us' },
+];
+---
+
+<footer class="w-full bg-canvas border-t border-hairline py-14 relative z-10">
+  <div class="w-full max-w-7xl mx-auto px-4 md:px-6">
+    <div class="grid gap-10 md:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)]">
+      <div class="space-y-4">
+        <a href="/" class="inline-flex items-center gap-2 group">
+          <img src="/icon.png" alt="Universal QR Code Tools" width="28" height="28" class="h-7 w-7 rounded-sm shadow-level-1 transition-transform group-hover:scale-105" />
+          <span class="font-sans font-semibold tracking-tight text-ink text-sm">Universal.</span>
+        </a>
+        <p class="text-sm text-body max-w-md leading-relaxed">
+          A free QR code generator for custom links, WiFi access, contact cards, phone actions, logo QR codes, and production-ready PNG or SVG downloads.
+        </p>
+      </div>
+
+      <nav class="grid grid-cols-2 gap-3 text-sm md:justify-self-end md:text-right" aria-label="Footer navigation">
+        {footerNav.map((item) => (
+          <a href={item.href} class="text-body transition-colors hover:text-ink focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary">
+            {item.label}
+          </a>
+        ))}
+      </nav>
+    </div>
+
+    <div class="mt-10 flex flex-col sm:flex-row items-center justify-between border-t border-hairline pt-8 text-xs text-mute font-mono gap-4">
+      <div>&copy; {new Date().getFullYear()} Universal QR Code Tools. All rights reserved.</div>
+      <ThemeSwitcher />
+    </div>
+  </div>
+</footer>

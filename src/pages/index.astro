@@ -2,128 +2,150 @@
 import Layout from '../layouts/Layout.astro';
 import QrGenerator from '../components/QrGenerator.astro';
 
-// Premium Landing Page for Universal QR Generator
+const pageTitle = 'Free QR Code Generator Online | No Sign Up QR Maker';
+const pageDescription = 'Use a free QR code generator online to create custom QR codes for links, WiFi, contacts, email, SMS, phone numbers, logos, PNG, and SVG export.';
+const pageKeywords = 'free qr code generator, qr code generator free, google qr code generator, free qr code generator no sign up, best free qr code generator, free qr code generator online, bulk qr code generator free, qr code generator with logo';
+const canonicalUrl = new URL('/', Astro.site ?? Astro.url.origin).toString();
+const faqItems = [
+  {
+    question: 'Which QR code generator is free forever?',
+    answer: 'Universal QR Code Tools is built as a free QR code generator for core QR code creation, including URL, WiFi, contact, email, SMS, phone, PNG export, SVG export, and logo customization. You can use the tool without creating an account or paying for a subscription.',
+  },
+  {
+    question: 'Is there a free QR code generator?',
+    answer: 'Yes. This website is a free QR code generator online that lets you create custom QR codes directly in your browser. Enter your content, choose the QR type, customize the design, and download the finished code with no sign up required.',
+  },
+  {
+    question: 'What is the best free QR code generator?',
+    answer: 'The best free QR code generator is usually the one that gives you clean scans, no sign up, useful QR formats, high contrast styling, logo support, and PNG or SVG downloads. This tool is designed around those practical features so you can create a polished QR code quickly.',
+  },
+  {
+    question: 'Which QR code generator supports bulk creation?',
+    answer: 'A bulk QR code generator free workflow is helpful for inventory labels, tickets, classrooms, and large campaigns. This app is currently focused on individual custom QR codes, so for large batches you may want a spreadsheet or API-based bulk QR tool until batch import is added here.',
+  },
+  {
+    question: 'Can I create a QR code with a logo?',
+    answer: 'Yes. Use the center logo upload option to add a brand mark or small image to your QR code. For best scanning results, keep strong color contrast, use a simple logo, and choose higher error correction before downloading the final PNG or SVG.',
+  },
+  {
+    question: 'Do I need to sign up to use this QR code generator?',
+    answer: 'No. The generator is made for quick no sign up QR code creation. You can create, preview, customize, and download your QR code without making an account.',
+  },
+  {
+    question: 'Are the QR codes static or dynamic?',
+    answer: 'The QR codes created here are static, which means the destination or content is stored inside the QR code itself. If you need editable destinations, scan analytics, or campaign tracking after printing, you should use a dynamic QR code service.',
+  },
+  {
+    question: 'Should I download my QR code as PNG or SVG?',
+    answer: 'Use PNG for websites, documents, social posts, and quick sharing. Use SVG when you need a crisp vector file for print design, signs, packaging, or editing in design software.',
+  },
+];
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebApplication',
+      name: 'Universal QR Code Generator',
+      applicationCategory: 'UtilitiesApplication',
+      operatingSystem: 'Any',
+      url: canonicalUrl,
+      description: pageDescription,
+      offers: {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'USD',
+      },
+      featureList: [
+        'Free QR code generator online',
+        'No sign up QR code creation',
+        'QR code generator with logo upload',
+        'PNG and SVG QR code export',
+        'URL, WiFi, vCard, email, SMS, and phone QR code types',
+      ],
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faqItems.map((item) => ({
+        '@type': 'Question',
+        name: item.question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: item.answer,
+        },
+      })),
+    },
+  ],
+};
 ---
 
-<Layout title="Universal QR Code Generator | Premium Designer Utilities">
-  <div class="min-h-screen flex flex-col justify-between relative overflow-hidden bg-canvas-soft isolate">
-
-    
-    <!-- Animated Mesh Gradient Backdrop -->
+<Layout title={pageTitle} description={pageDescription} keywords={pageKeywords} canonical={canonicalUrl} jsonLd={jsonLd}>
+  <div class="flex-grow relative overflow-hidden bg-canvas-soft isolate">
     <div class="mesh-gradient-bg"></div>
 
-    <!-- Sticky Navigation Bar -->
-    <header class="sticky top-0 z-50 w-full h-16 bg-canvas/80 backdrop-blur-md border-b border-hairline flex items-center shadow-sm">
-      <div class="w-full max-w-7xl mx-auto px-4 md:px-6 flex items-center justify-between">
-        
-        <!-- Logo -->
-        <a href="/" class="flex items-center gap-2 group cursor-pointer">
-          <!-- Geometric custom QR Symbol (Vercel-like duet) -->
-          <div class="w-7 h-7 bg-primary rounded flex items-center justify-center text-on-primary font-mono text-sm font-semibold select-none group-hover:scale-105 transition-transform">
-            QR
-          </div>
-          <span class="font-sans font-semibold tracking-tight text-ink text-sm">Universal.</span>
-        </a>
-
-        <!-- Center Nav Links (Desktop) -->
-        <nav class="hidden md:flex items-center gap-1 bg-canvas-soft-2/50 border border-hairline/50 p-1 rounded-full text-xs">
-          <a href="#generator" class="px-4 py-1.5 rounded-full font-medium text-ink bg-canvas shadow-sm">Generator</a>
-          <a href="#" class="px-4 py-1.5 rounded-full font-medium text-body hover:text-ink transition-colors">Templates</a>
-          <a href="#" class="px-4 py-1.5 rounded-full font-medium text-body hover:text-ink transition-colors">Developers</a>
-          <a href="#" class="px-4 py-1.5 rounded-full font-medium text-body hover:text-ink transition-colors">Pricing</a>
-        </nav>
-
-        <!-- Right Side CTAs -->
-        <div class="flex items-center gap-2">
-          <a href="#" class="hidden sm:inline-flex h-7 px-3 items-center justify-center bg-canvas hover:bg-canvas-soft-2 border border-hairline rounded-sm text-xs font-medium text-ink transition-colors">
-            Ask AI
-          </a>
-          <a href="#" class="h-7 px-3 inline-flex items-center justify-center bg-canvas hover:bg-canvas-soft-2 rounded-sm text-xs font-medium text-ink transition-colors">
-            Log In
-          </a>
-          <a href="#" class="h-7 px-3 inline-flex items-center justify-center bg-primary hover:bg-black rounded-sm text-xs font-medium text-on-primary transition-colors">
-            Sign Up
-          </a>
-        </div>
-
-      </div>
-    </header>
-
-    <!-- Main Section Workspace -->
     <main id="generator" class="flex-grow">
       <QrGenerator />
     </main>
 
-    <!-- Premium Footer -->
-    <footer class="w-full bg-canvas border-t border-hairline py-16 relative z-10">
-      <div class="w-full max-w-7xl mx-auto px-4 md:px-6">
-        
-        <div class="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
-          
-          <!-- Column 1: Brand details -->
-          <div class="col-span-2 space-y-4">
-            <div class="flex items-center gap-2">
-              <div class="w-6 h-6 bg-primary rounded flex items-center justify-center text-on-primary font-mono text-xs font-semibold">
-                QR
-              </div>
-              <span class="font-sans font-semibold tracking-tight text-ink text-sm">Universal.</span>
-            </div>
-            <p class="text-xs text-body max-w-xs leading-relaxed">
-              An inspired utility crafted for developers, designers, and printing experts. Clean, stark, and vector-perfect.
+    <section class="w-full bg-canvas border-y border-hairline py-16 relative z-10" aria-labelledby="seo-overview-title">
+      <div class="w-full max-w-7xl mx-auto px-4 md:px-6 grid gap-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(360px,0.95fr)] lg:items-start xl:gap-16">
+        <div class="min-w-0 space-y-5">
+          <p class="text-xs font-mono uppercase text-body">Free QR Code Generator</p>
+          <h2 id="seo-overview-title" class="text-3xl md:text-4xl font-semibold tracking-tight text-ink leading-tight text-pretty">
+            Create Custom QR Codes Online for Free.
+          </h2>
+          <div class="space-y-4 text-sm md:text-base leading-relaxed text-body">
+            <p>
+              Universal QR Code Tools is a free QR code generator built for people who need a fast, polished, and reliable way to turn everyday information into scannable codes. You can create a QR code for a website URL, WiFi network, contact card, email message, SMS, or phone number directly in your browser. The tool is designed to feel simple enough for quick sharing and precise enough for designers, developers, marketers, teachers, restaurants, event teams, and small businesses that care about clean presentation.
+            </p>
+            <p>
+              If you are searching for a qr code generator free of account walls, this page is made for that workflow. You do not need to create a profile, confirm an email, or install extra software before generating your code. The free QR code generator no sign up experience keeps the focus on the task: enter your content, choose the format, preview the scan result, customize the look, and download a production-ready file. It works as a free QR code generator online, so it can be used from a laptop, tablet, or phone whenever you need a quick code for print or digital use.
+            </p>
+            <p>
+              The generator includes styling controls that many simple tools leave out. You can adjust foreground and background colors, switch dot patterns, choose corner styles, set error correction, and add a centered logo image. That makes it a practical QR code generator with logo support for brands that want a code to match a campaign, flyer, menu, product label, portfolio, or landing page. PNG export is useful for social posts, documents, posters, and presentations, while SVG export gives you a vector file for crisp printing and design software.
+            </p>
+            <p>
+              Every QR code is generated from the details you enter, so you can tailor the output for the exact destination and context. A restaurant can publish a menu link, a consultant can share contact information, a venue can display guest WiFi access, and a creator can point visitors to a portfolio or store. The preview updates instantly, which makes it easier to compare colors, logo size, and scan density before you export.
+            </p>
+            <p>
+              Many people compare tools by searching phrases like google qr code generator, best free QR code generator, or free QR code generator online. The best choice is usually the one that gives you enough control without adding friction. This app keeps the interface focused: content tabs on the left, live preview on the right, and download actions close to the finished code. Recent QR codes are saved locally in your browser history so you can return to previous work without sending private content to an account dashboard.
+            </p>
+            <p>
+              A bulk QR code generator free workflow can be helpful when you need hundreds of codes for inventory, tickets, or classrooms, but many projects start with one carefully styled code. Universal QR Code Tools is optimized for those high-quality individual codes: a campaign link, a business card vCard, a WiFi sign for guests, a phone shortcut, or a message template. Because the QR content updates live as you type, you can check details before downloading and avoid reprinting mistakes.
+            </p>
+            <p>
+              Use this free qr code generator whenever you need a clean code that can be scanned easily and shared confidently. Keep contrast high, test the scan on more than one phone, and use higher error correction when adding a logo. Whether you are publishing a brochure, building a conference badge, linking a menu, sharing a payment page, or sending visitors to a website, the tool gives you a practical balance of speed, customization, and export quality.
+            </p>
+          </div>
+        </div>
+
+        <section class="min-w-0 space-y-6 lg:border-l lg:border-hairline lg:pl-10 xl:pl-12" aria-labelledby="faq-title">
+          <div class="space-y-3">
+            <p class="text-xs font-mono uppercase text-body">FAQ</p>
+            <h2 id="faq-title" class="text-3xl md:text-4xl font-semibold tracking-tight text-ink leading-tight text-pretty">
+              Free QR Code Generator FAQ.
+            </h2>
+            <p class="text-sm md:text-base leading-relaxed text-body">
+              Clear answers about free QR code generation, logo support, bulk workflows, static QR codes, and export formats.
             </p>
           </div>
 
-          <!-- Column 2: Product -->
-          <div class="space-y-3">
-            <h4 class="text-xs font-mono uppercase tracking-wider text-ink font-semibold">Product</h4>
-            <ul class="space-y-2 text-xs text-body">
-              <li><a href="#" class="hover:text-ink transition-colors">Generator</a></li>
-              <li><a href="#" class="hover:text-ink transition-colors">Custom Designs</a></li>
-              <li><a href="#" class="hover:text-ink transition-colors">SVG Vector Export</a></li>
-              <li><a href="#" class="hover:text-ink transition-colors">Print Layouts</a></li>
-            </ul>
+          <div class="border-y border-hairline divide-y divide-hairline">
+            {faqItems.map((item) => (
+              <details class="group py-5">
+                <summary class="flex cursor-pointer list-none items-start justify-between gap-4 text-left text-sm md:text-base font-medium text-ink hover:text-primary focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary focus-visible:ring-offset-4 focus-visible:ring-offset-canvas">
+                  <span class="min-w-0 break-words">{item.question}</span>
+                  <span class="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-hairline bg-canvas text-sm leading-none text-body" aria-hidden="true">
+                    +
+                  </span>
+                </summary>
+                <p class="mt-3 max-w-2xl text-sm md:text-base leading-relaxed text-body">
+                  {item.answer}
+                </p>
+              </details>
+            ))}
           </div>
-
-          <!-- Column 3: Resources -->
-          <div class="space-y-3">
-            <h4 class="text-xs font-mono uppercase tracking-wider text-ink font-semibold">Resources</h4>
-            <ul class="space-y-2 text-xs text-body">
-              <li><a href="#" class="hover:text-ink transition-colors">API Docs</a></li>
-              <li><a href="#" class="hover:text-ink transition-colors">QR Standards</a></li>
-              <li><a href="#" class="hover:text-ink transition-colors">Usage Policies</a></li>
-              <li><a href="#" class="hover:text-ink transition-colors">vCard Spec</a></li>
-            </ul>
-          </div>
-
-          <!-- Column 4: Legal -->
-          <div class="space-y-3">
-            <h4 class="text-xs font-mono uppercase tracking-wider text-ink font-semibold">Company</h4>
-            <ul class="space-y-2 text-xs text-body">
-              <li><a href="#" class="hover:text-ink transition-colors">About</a></li>
-              <li><a href="#" class="hover:text-ink transition-colors">Privacy Policy</a></li>
-              <li><a href="#" class="hover:text-ink transition-colors">Terms of Service</a></li>
-              <li><a href="#" class="hover:text-ink transition-colors">Contact</a></li>
-            </ul>
-          </div>
-
-        </div>
-
-        <!-- Bottom details row -->
-        <div class="flex flex-col sm:flex-row items-center justify-between border-t border-hairline pt-8 text-xs text-mute font-mono gap-4">
-          <div>
-            © {new Date().getFullYear()} Universal QR Code Tools. All rights reserved.
-          </div>
-          <div class="flex gap-4">
-            <a href="#" class="hover:text-ink transition-colors">GitHub</a>
-            <span>•</span>
-            <a href="#" class="hover:text-ink transition-colors">Status</a>
-            <span>•</span>
-            <a href="#" class="hover:text-ink transition-colors">Feedback</a>
-          </div>
-        </div>
-
+        </section>
       </div>
-    </footer>
-
+    </section>
   </div>
 </Layout>

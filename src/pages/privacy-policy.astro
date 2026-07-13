@@ -1,0 +1,63 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const title = 'Privacy Policy | Universal QR Code Tools';
+const description = 'Read the Universal QR Code Tools privacy policy for the free QR code generator, including local browser storage and QR content handling.';
+const canonical = new URL('/privacy-policy/', Astro.site ?? Astro.url.origin).toString();
+const updated = 'July 13, 2026';
+---
+
+<Layout title={title} description={description} canonical={canonical}>
+  <main class="flex-grow bg-canvas-soft">
+    <section class="w-full border-b border-hairline bg-canvas py-16 md:py-20">
+      <div class="w-full max-w-7xl mx-auto px-4 md:px-6">
+        <div class="max-w-3xl space-y-5">
+          <p class="text-xs font-mono uppercase text-body">Privacy Policy</p>
+          <h1 class="text-4xl md:text-5xl font-semibold tracking-tight text-ink leading-tight text-pretty">
+            Privacy for a no sign up QR code generator.
+          </h1>
+          <p class="text-sm text-body font-mono">Last updated: {updated}</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="w-full py-16">
+      <div class="w-full max-w-3xl mx-auto px-4 md:px-6 space-y-8 text-sm md:text-base leading-relaxed text-body">
+        <div class="space-y-3">
+          <h2 class="text-2xl font-semibold tracking-tight text-ink">Information You Enter</h2>
+          <p>
+            Universal QR Code Tools generates QR codes from the content you provide, such as URLs, WiFi details, contact information, email text, SMS text, or phone numbers. The generator is designed to work without account creation.
+          </p>
+        </div>
+
+        <div class="space-y-3">
+          <h2 class="text-2xl font-semibold tracking-tight text-ink">Local Browser Storage</h2>
+          <p>
+            Recent QR code history may be saved in your browser's local storage so you can revisit recent work on the same device. Local storage stays on your device unless you clear browser data or your browser sync settings copy it elsewhere.
+          </p>
+        </div>
+
+        <div class="space-y-3">
+          <h2 class="text-2xl font-semibold tracking-tight text-ink">Logo Uploads</h2>
+          <p>
+            If you upload a logo for a QR code, the image is used to render the QR code preview and export. Avoid uploading private, confidential, or sensitive files unless you are comfortable using them in your generated QR code.
+          </p>
+        </div>
+
+        <div class="space-y-3">
+          <h2 class="text-2xl font-semibold tracking-tight text-ink">Hosting, Fonts, and Logs</h2>
+          <p>
+            Like most websites, the hosting provider may process standard technical information such as IP address, browser type, requested page, and timestamps to deliver the site and protect the service. The site also loads web fonts from Google Fonts, which may involve requests to Google-operated domains.
+          </p>
+        </div>
+
+        <div class="space-y-3">
+          <h2 class="text-2xl font-semibold tracking-tight text-ink">Contact</h2>
+          <p>
+            For privacy questions, use the contact page and include enough detail for us to understand your request.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>

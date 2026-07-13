@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Free QR Code Generator Online</title>
+  <desc id="desc">Universal QR Code Tools social preview image.</desc>
+  <rect width="1200" height="630" fill="#fafafa"/>
+  <circle cx="965" cy="120" r="220" fill="#50e3c2" opacity="0.28"/>
+  <circle cx="1030" cy="515" r="250" fill="#ff0080" opacity="0.18"/>
+  <circle cx="200" cy="80" r="190" fill="#007cf0" opacity="0.18"/>
+  <rect x="82" y="72" width="1036" height="486" rx="28" fill="#ffffff" stroke="#ebebeb"/>
+  <g transform="translate(850 160)">
+    <rect width="210" height="210" rx="18" fill="#171717"/>
+    <rect x="28" y="28" width="50" height="50" fill="#ffffff"/>
+    <rect x="132" y="28" width="50" height="50" fill="#ffffff"/>
+    <rect x="28" y="132" width="50" height="50" fill="#ffffff"/>
+    <rect x="96" y="96" width="20" height="20" fill="#ffffff"/>
+    <rect x="132" y="96" width="20" height="20" fill="#ffffff"/>
+    <rect x="96" y="132" width="20" height="20" fill="#ffffff"/>
+    <rect x="132" y="156" width="50" height="26" fill="#ffffff"/>
+  </g>
+  <text x="140" y="188" fill="#171717" font-family="Inter, Arial, sans-serif" font-size="68" font-weight="600">Free QR Code Generator</text>
+  <text x="140" y="264" fill="#4d4d4d" font-family="Inter, Arial, sans-serif" font-size="32">Create custom QR codes online with logo,</text>
+  <text x="140" y="308" fill="#4d4d4d" font-family="Inter, Arial, sans-serif" font-size="32">PNG, and SVG export. No sign up.</text>
+  <rect x="140" y="388" width="246" height="54" rx="27" fill="#171717"/>
+  <text x="174" y="424" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="600">Generate Free</text>
+  <text x="140" y="494" fill="#888888" font-family="JetBrains Mono, monospace" font-size="20">URL · WiFi · vCard · Email · SMS · Phone</text>
+</svg>

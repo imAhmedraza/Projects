@@ -1,0 +1,60 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const title = 'Contact Us | Universal QR Code Tools';
+const description = 'Contact Universal QR Code Tools for questions, feedback, privacy requests, and support for the free QR code generator.';
+const canonical = new URL('/contact-us/', Astro.site ?? Astro.url.origin).toString();
+---
+
+<Layout title={title} description={description} canonical={canonical}>
+  <main class="flex-grow bg-canvas-soft">
+    <section class="w-full border-b border-hairline bg-canvas py-16 md:py-20">
+      <div class="w-full max-w-7xl mx-auto px-4 md:px-6">
+        <div class="max-w-3xl space-y-5">
+          <p class="text-xs font-mono uppercase text-body">Contact Us</p>
+          <h1 class="text-4xl md:text-5xl font-semibold tracking-tight text-ink leading-tight text-pretty">
+            Questions, feedback, and support.
+          </h1>
+          <p class="text-base md:text-lg leading-relaxed text-body">
+            Use this page for product feedback, privacy questions, bug reports, and suggestions for the free QR code generator.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="w-full py-16">
+      <div class="w-full max-w-7xl mx-auto px-4 md:px-6 grid gap-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
+        <div class="space-y-3">
+          <p class="text-xs font-mono uppercase text-body">Get In Touch</p>
+          <h2 class="text-2xl md:text-3xl font-semibold tracking-tight text-ink leading-tight">
+            Tell us what you are trying to create.
+          </h2>
+          <p class="text-sm leading-relaxed text-body">
+            Include the QR type, browser, device, and what happened if you are reporting an issue.
+          </p>
+        </div>
+
+        <div class="border-y border-hairline divide-y divide-hairline">
+          <div class="py-5">
+            <h3 class="text-base font-medium text-ink">General support</h3>
+            <p class="mt-2 text-sm md:text-base leading-relaxed text-body">
+              For questions about generating, styling, or exporting QR codes, contact the site owner through the support address configured for your published website.
+            </p>
+          </div>
+          <div class="py-5">
+            <h3 class="text-base font-medium text-ink">Feature requests</h3>
+            <p class="mt-2 text-sm md:text-base leading-relaxed text-body">
+              Share ideas for new QR types, batch generation, export options, scan testing, or brand controls that would make the tool more useful.
+            </p>
+          </div>
+          <div class="py-5">
+            <h3 class="text-base font-medium text-ink">Privacy requests</h3>
+            <p class="mt-2 text-sm md:text-base leading-relaxed text-body">
+              For privacy-related questions, include the page URL and a clear description of the request so it can be reviewed properly.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>

@@ -1,26 +1,135 @@
 ---
 import '../styles/global.css';
+import SiteFooter from '../components/SiteFooter.astro';
+import SiteHeader from '../components/SiteHeader.astro';
 
 interface Props {
 	title?: string;
 	description?: string;
+	keywords?: string;
+	canonical?: string;
+	ogImage?: string;
+	jsonLd?: Record<string, unknown>;
 }
 
 const { 
-	title = "Universal QR Code Generator | Premium Designer Utilities",
-	description = "Generate customized, print-ready, high-fidelity QR codes with custom styling, dot shape adjustments, and logo overlays."
+	title = "Free QR Code Generator | Create Custom QR Codes Online",
+	description = "Create custom QR codes online with a free QR code generator for URLs, WiFi, contact cards, email, SMS, phone numbers, logos, PNG, and SVG exports.",
+	keywords = "free qr code generator, qr code generator free, google qr code generator, free qr code generator no sign up, best free qr code generator, free qr code generator online, bulk qr code generator free, qr code generator with logo",
+	canonical,
+	ogImage = "/og-image.svg",
+	jsonLd,
 } = Astro.props;
+
+const canonicalUrl = canonical ?? new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin).toString();
+const ogImageUrl = new URL(ogImage, canonicalUrl).toString();
 ---
 <!doctype html>
 <html lang="en" class="scroll-smooth">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
+		<meta id="theme-color" name="theme-color" content="#fafafa" />
+		<link rel="icon" type="image/png" href="/favicon.png" />
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 		<meta name="description" content={description} />
+		<meta name="keywords" content={keywords} />
+		<meta name="robots" content="index, follow, max-image-preview:large" />
+		<link rel="canonical" href={canonicalUrl} />
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content="Universal QR Code Tools" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonicalUrl} />
+		<meta property="og:image" content={ogImageUrl} />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:image:alt" content="Free QR code generator interface preview" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={ogImageUrl} />
+		{jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+		<script is:inline>
+			(() => {
+				const storageKey = 'universal-theme-mode';
+				const modes = new Set(['device', 'light', 'dark']);
+				const root = document.documentElement;
+				const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+				const getStoredMode = () => {
+					try {
+						const mode = localStorage.getItem(storageKey);
+						return modes.has(mode) ? mode : 'device';
+					} catch {
+						return 'device';
+					}
+				};
+
+				const syncControls = (mode) => {
+					document.querySelectorAll('[data-theme-option]').forEach((button) => {
+						const selected = button.getAttribute('data-theme-option') === mode;
+						button.setAttribute('aria-pressed', String(selected));
+					});
+				};
+
+				const applyTheme = (mode = getStoredMode()) => {
+					const selectedMode = modes.has(mode) ? mode : 'device';
+					if (selectedMode === 'device') {
+						root.removeAttribute('data-theme');
+					} else {
+						root.setAttribute('data-theme', selectedMode);
+					}
+
+					const resolvedTheme = selectedMode === 'device'
+						? (mediaQuery.matches ? 'dark' : 'light')
+						: selectedMode;
+
+					root.dataset.themeMode = selectedMode;
+					root.dataset.resolvedTheme = resolvedTheme;
+
+					const themeColor = document.getElementById('theme-color');
+					if (themeColor) {
+						themeColor.setAttribute('content', resolvedTheme === 'dark' ? '#050505' : '#fafafa');
+					}
+
+					syncControls(selectedMode);
+				};
+
+				window.UniversalTheme = {
+					apply: applyTheme,
+					set(mode) {
+						const selectedMode = modes.has(mode) ? mode : 'device';
+						try {
+							if (selectedMode === 'device') {
+								localStorage.removeItem(storageKey);
+							} else {
+								localStorage.setItem(storageKey, selectedMode);
+							}
+						} catch {}
+						applyTheme(selectedMode);
+					},
+				};
+
+				applyTheme();
+				mediaQuery.addEventListener('change', () => {
+					if (getStoredMode() === 'device') {
+						applyTheme('device');
+					}
+				});
+
+				document.addEventListener('DOMContentLoaded', () => {
+					document.querySelectorAll('[data-theme-option]').forEach((button) => {
+						button.addEventListener('click', () => {
+							window.UniversalTheme.set(button.getAttribute('data-theme-option'));
+						});
+					});
+					applyTheme(getStoredMode());
+				});
+			})();
+		</script>
 		
 		<!-- Google Fonts for Inter (Sans) and JetBrains Mono (Monospace) -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,8 +137,10 @@ const {
 		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 	</head>
 	<body class="bg-canvas-soft text-ink font-sans selection:bg-primary selection:text-on-primary">
-		<div class="relative isolation-isolate">
+		<div class="relative isolation-isolate min-h-screen flex flex-col">
+			<SiteHeader />
 			<slot />
+			<SiteFooter />
 		</div>
 	</body>
 
