@@ -10,6 +10,7 @@ interface Props {
 	canonical?: string;
 	ogImage?: string;
 	jsonLd?: Record<string, unknown>;
+	robots?: string;
 }
 
 const { 
@@ -19,6 +20,7 @@ const {
 	canonical,
 	ogImage = "/og-image.svg",
 	jsonLd,
+	robots = "index, follow, max-image-preview:large",
 } = Astro.props;
 
 const canonicalUrl = canonical ?? new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin).toString();
@@ -30,13 +32,15 @@ const ogImageUrl = new URL(ogImage, canonicalUrl).toString();
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta id="theme-color" name="theme-color" content="#fafafa" />
+		<link rel="icon" href="/favicon.ico" sizes="any" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" type="image/png" href="/favicon.png" />
 		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 		<meta name="description" content={description} />
 		<meta name="keywords" content={keywords} />
-		<meta name="robots" content="index, follow, max-image-preview:large" />
+		<meta name="robots" content={robots} />
 		<link rel="canonical" href={canonicalUrl} />
 		<meta property="og:type" content="website" />
 		<meta property="og:site_name" content="Universal QR Code Tools" />

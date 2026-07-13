@@ -1,0 +1,32 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const title = 'Page Not Found | Universal QR Code Tools';
+const description = 'The requested page could not be found. Return to the free QR code generator or browse Universal QR Code Tools.';
+---
+
+<Layout title={title} description={description} robots="noindex, nofollow">
+  <main class="flex-grow bg-canvas-soft">
+    <section class="w-full border-b border-hairline bg-canvas py-20 md:py-24">
+      <div class="w-full max-w-7xl mx-auto px-4 md:px-6">
+        <div class="max-w-2xl space-y-5">
+          <p class="text-xs font-mono uppercase text-body">404</p>
+          <h1 class="text-4xl md:text-5xl font-semibold tracking-tight text-ink leading-tight text-pretty">
+            Page Not Found.
+          </h1>
+          <p class="text-base md:text-lg leading-relaxed text-body">
+            The page you are looking for may have moved, been removed, or never existed.
+          </p>
+          <div class="flex flex-wrap gap-3 pt-2">
+            <a href="/" class="inline-flex h-11 items-center justify-center rounded-pill bg-primary px-5 text-sm font-medium text-on-primary transition-colors hover:opacity-90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary">
+              Open Generator
+            </a>
+            <a href="/sitemap.xml" class="inline-flex h-11 items-center justify-center rounded-pill border border-hairline bg-canvas px-5 text-sm font-medium text-ink transition-colors hover:bg-canvas-soft-2 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary">
+              View Sitemap
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>

@@ -1,0 +1,43 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+interface Props {
+  error?: unknown;
+}
+
+const { error } = Astro.props;
+const title = 'Server Error | Universal QR Code Tools';
+const description = 'Something went wrong while loading Universal QR Code Tools.';
+const isKnownError = error instanceof Error;
+---
+
+<Layout title={title} description={description} robots="noindex, nofollow">
+  <main class="flex-grow bg-canvas-soft">
+    <section class="w-full border-b border-hairline bg-canvas py-20 md:py-24">
+      <div class="w-full max-w-7xl mx-auto px-4 md:px-6">
+        <div class="max-w-2xl space-y-5">
+          <p class="text-xs font-mono uppercase text-body">500</p>
+          <h1 class="text-4xl md:text-5xl font-semibold tracking-tight text-ink leading-tight text-pretty">
+            Something Went Wrong.
+          </h1>
+          <p class="text-base md:text-lg leading-relaxed text-body">
+            The site could not finish loading this page. You can return to the generator and try again.
+          </p>
+          {isKnownError && (
+            <p class="text-xs text-mute font-mono">
+              Error reference: page render failed.
+            </p>
+          )}
+          <div class="flex flex-wrap gap-3 pt-2">
+            <a href="/" class="inline-flex h-11 items-center justify-center rounded-pill bg-primary px-5 text-sm font-medium text-on-primary transition-colors hover:opacity-90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary">
+              Open Generator
+            </a>
+            <a href="/contact-us/" class="inline-flex h-11 items-center justify-center rounded-pill border border-hairline bg-canvas px-5 text-sm font-medium text-ink transition-colors hover:bg-canvas-soft-2 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary">
+              Contact Support
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>
